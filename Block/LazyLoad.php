@@ -25,7 +25,7 @@ use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use Mageplaza\LazyLoading\Helper\Image as HelperImage;
 use Mageplaza\LazyLoading\Helper\Data as HelperData;
-use Magento\Framework\View\Asset\Repository;
+
 
 /**
  * Class LazyLoad
@@ -41,18 +41,11 @@ class LazyLoad extends Template
         Context $context,
         HelperImage $helperImage,
         HelperData $helperData,
-        Repository $assetRepo,
         array $data = []
     ) {
         $this->helperImage = $helperImage;
         $this->helperData  = $helperData;
-        $this->assetRepo   = $assetRepo;
         parent::__construct($context, $data);
-    }
-
-    public function getDefaultIcon()
-    {
-        return $this->assetRepo->getUrl('Mageplaza_LazyLoading::mageplaza/lazyloading/loader.gif');
     }
 
 //    public function resizeIcon()

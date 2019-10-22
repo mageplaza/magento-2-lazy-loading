@@ -26,6 +26,7 @@ use Magento\Framework\ObjectManagerInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Mageplaza\Core\Helper\AbstractData;
 use Mageplaza\LazyLoading\Helper\Image as HelperImage;
+use Magento\Framework\View\Asset\Repository;
 
 /**
  * Class Data
@@ -36,7 +37,7 @@ class Data extends AbstractData
     const CONFIG_MODULE_PATH = 'mplazyload';
     const DEFAULT_IMAGE      = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
     protected $helperImage;
-
+    protected $assetRepo;
     public $relatedBlock = [
         'related_products_list',
         'upsell_products_list',
@@ -47,9 +48,11 @@ class Data extends AbstractData
         Context $context,
         ObjectManagerInterface $objectManager,
         StoreManagerInterface $storeManager,
-        HelperImage $helperImage
+        HelperImage $helperImage,
+        Repository $assetRepo
     ) {
         $this->helperImage = $helperImage;
+        $this->assetRepo   = $assetRepo;
         parent::__construct($context, $objectManager, $storeManager);
     }
 
@@ -75,19 +78,19 @@ class Data extends AbstractData
     public function getExcludeCss()
     {
         $result = [];
-        $class = self::jsonDecode($this->getConfigGeneral('exclude_css'));
+        $class  = self::jsonDecode($this->getConfigGeneral('exclude_css'));
         foreach ($class as $item) {
             $result[] = $item['css_class'];
         }
 
         return self::jsonEncode($result);
-//        return $this->getConfigGeneral('exclude_css');
+        //        return $this->getConfigGeneral('exclude_css');
     }
 
     public function getExcludeText()
     {
         $result = [];
-        $text = self::jsonDecode($this->getConfigGeneral('exclude_text'));
+        $text   = self::jsonDecode($this->getConfigGeneral('exclude_text'));
         foreach ($text as $item) {
             $result[] = $item['text'];
         }
@@ -138,6 +141,11 @@ class Data extends AbstractData
 
         return $pages && strpos($this->getApplyFor(), $page) !== false
             && strpos($this->_getRequest()->getFullActionName(), $fullActionName) !== false;
+    }
+
+    public function getDefaultIcon()
+    {
+        return $this->assetRepo->getUrl('Mageplaza_LazyLoading::mageplaza/lazyloading/loader.gif');
     }
 
     public function getIcon()
