@@ -30,16 +30,19 @@
         $('img').each(function() {
             var i, j, img = $(this),
                 alt = img.attr('alt') ? img.attr('alt') : '',
-                title = img.attr('title') ? img.attr('title') : '';
+                title = img.attr('title') ? img.attr('title') : '',
+                src = img.attr('data-src');
 
             for (i = 0; i < excludeCss.length; i++) {
                 if (img.hasClass(excludeCss[i])) {
+                    img.attr('src', src);
                     img.removeClass('mplazyload');
                 }
             }
 
             for (j = 0; j < excludeText.length; j++) {
                 if (alt.includes(excludeText[i]) || title.includes(excludeText[i])) {
+                    img.attr('src', src);
                     $(this).removeClass('mplazyload');
                 }
             }
