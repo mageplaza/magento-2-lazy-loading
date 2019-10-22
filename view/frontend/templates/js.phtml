@@ -37,13 +37,17 @@
                 if (img.hasClass(excludeCss[i])) {
                     img.attr('src', src);
                     img.removeClass('mplazyload');
+                    img.removeClass('mplazyload-blur');
+                    img.removeClass('mplazyload-icon');
                 }
             }
 
             for (j = 0; j < excludeText.length; j++) {
                 if (alt.includes(excludeText[i]) || title.includes(excludeText[i])) {
                     img.attr('src', src);
-                    $(this).removeClass('mplazyload');
+                    img.removeClass('mplazyload');
+                    img.removeClass('mplazyload-blur');
+                    img.removeClass('mplazyload-icon');
                 }
             }
         });
