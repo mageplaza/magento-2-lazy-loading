@@ -1,0 +1,90 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_LazyLoading
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+?>
+<script>
+    require([
+        'jquery',
+        'lazyLoad'
+    ], function ($) {
+        var excludeCss = <?= $block->getExcludeCss() ?>,
+            excludeText = <?= $block->getExcludeText() ?>;
+
+        $('img').each(function() {
+            var i, j, img = $(this),
+                alt = img.attr('alt') ? img.attr('alt') : '',
+                title = img.attr('title') ? img.attr('title') : '';
+
+            for (i = 0; i < excludeCss.length; i++) {
+                if (img.hasClass(excludeCss[i])) {
+                    img.removeClass('mplazyload');
+                }
+            }
+
+            for (j = 0; j < excludeText.length; j++) {
+                if (alt.includes(excludeText[i]) || title.includes(excludeText[i])) {
+                    $(this).removeClass('mplazyload');
+                }
+            }
+        });
+
+        // $('img').each(function() {
+        //     if (!$(this).hasClass('mplazyload')) {
+        //         var src = $(this).attr('src');
+        //         $(this).addClass('mplazyload');
+        //         $(this).removeAttr('src');
+        //         $(this).attr('data-src', src);
+        //     }
+        // })
+        //var loadingType = '<?//= $block->getLoadingType() ?>//';
+
+        // $('img').each(function() {
+            // $(this).addClass('mplazyload');
+            // if (loadingType === 'icon') {
+            //     $(this).addClass('mplazyload-icon')
+            // } else {
+            //     $(this).addClass('mplazyload-placeholder')
+            // }
+        // })
+
+        $('.mplazyload').lazy({
+            threshold: <?= $block->getThreshold() ?>,
+            effect: "fadeIn",
+            effectTime: 1000,
+            afterLoad: function(e) {
+                e.removeClass('mplazyload-blur');
+                e.removeClass('mplazyload-icon');
+            },
+        });
+    });
+</script>
+
+<style>
+    img.mplazyload-icon {
+        width: <?= $block->getResizeWith() . 'px' ?>;
+        height: <?= $block->getResizeHeight() . 'px' ?>;
+    }
+    img.mplazyload-blur {
+        transition: 0.3s filter linear;
+        -o-transition: 0.3s -o-filter linear;
+        -webkit-filter: blur(5px);
+        filter: blur(5px);
+    }
+</style>
