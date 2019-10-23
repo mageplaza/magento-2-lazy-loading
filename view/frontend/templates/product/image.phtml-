@@ -1,0 +1,8 @@
+<?php /** @var $block \Magento\Catalog\Block\Product\Image */ ?>
+
+<img class="mplazyload photo image"
+    <?= /* @escapeNotVerified */ $block->getCustomAttributes() ?>
+     src="<?= /* @escapeNotVerified */ $block->getIcon() ?>"
+     width="<?= /* @escapeNotVerified */ $block->getWidth() ?>"
+     height="<?= /* @escapeNotVerified */ $block->getHeight() ?>"
+     alt="<?= /* @escapeNotVerified */ $block->stripTags($block->getLabel(), null, true) ?>" />
