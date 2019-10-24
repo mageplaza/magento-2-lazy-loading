@@ -34,36 +34,38 @@
             img.removeClass('mplazyload-cms');
         }
 
-        $('img').each(function() {
-            var i, j, img = $(this),
-                alt = img.attr('alt') ? img.attr('alt') : '',
-                title = img.attr('title') ? img.attr('title') : '',
-                src = img.attr('data-src');
+        $(document).ready(function() {
+            $('img').each(function() {
+                var i, j, img = $(this),
+                    alt = img.attr('alt') ? img.attr('alt') : '',
+                    title = img.attr('title') ? img.attr('title') : '',
+                    src = img.attr('data-src');
 
-            for (i = 0; i < excludeCss.length; i++) {
-                if (img.hasClass(excludeCss[i])) {
-                    img.attr('src', src);
-                    removeClass(img);
+                for (i = 0; i < excludeCss.length; i++) {
+                    if (img.hasClass(excludeCss[i])) {
+                        img.attr('src', src);
+                        removeClass(img);
+                    }
                 }
-            }
 
-            for (j = 0; j < excludeText.length; j++) {
-                if (alt.includes(excludeText[j]) || title.includes(excludeText[j])) {
-                    img.attr('src', src);
-                    removeClass(img);
+                for (j = 0; j < excludeText.length; j++) {
+                    if (alt.includes(excludeText[j]) || title.includes(excludeText[j])) {
+                        img.attr('src', src);
+                        removeClass(img);
+                    }
                 }
-            }
-        });
+            });
 
-        $('.mplazyload').lazy({
-            threshold: <?= $block->getThreshold() ?>,
-            effect: "fadeIn",
-            effectTime: 1000,
-            afterLoad: function(e) {
-                e.removeClass('mplazyload-blur');
-                e.removeClass('mplazyload-icon');
-                e.removeClass('mplazyload-cms');
-            },
+            $('.mplazyload').lazy({
+                threshold: <?= $block->getThreshold() ?>,
+                effect: "fadeIn",
+                effectTime: 1000,
+                afterLoad: function(e) {
+                    e.removeClass('mplazyload-blur');
+                    e.removeClass('mplazyload-icon');
+                    e.removeClass('mplazyload-cms');
+                },
+            });
         });
     });
 </script>
