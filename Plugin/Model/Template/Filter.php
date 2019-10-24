@@ -72,7 +72,7 @@ class Filter
                     $imgSrc  = $this->getImageSrc($img);
                     $imgPath = substr($imgSrc, strpos($imgSrc, 'pub'));
                     $imgInfo = $this->file->getPathInfo($imgPath);
-                    $this->optimizeImage($imgPath, $imgInfo);
+                    $this->optimizeImage($this->filterSrc($imgPath), $imgInfo);
                     $placeHolder = $this->helperImage->getBaseMediaUrl()
                         . '/mageplaza/lazyloading/'
                         . $imgInfo['basename'];
@@ -88,6 +88,18 @@ class Filter
         return str_replace($search, $replaced, $result);
     }
 
+    public function filterSrc($path)
+    {
+        if (strpos($path, '/version') !== false) {
+            $leftStr = substr($path, 0, strpos($path, '/version'));
+            $rightStr = substr($path, strpos($path, '/frontend'));
+
+            return $leftStr . $rightStr;
+        }
+
+        return $path;
+    }
+
     public function getImageSrc($img)
     {
         preg_match('/src\s*=\s*"(.+?)"/', $img, $matches);
@@ -99,7 +111,7 @@ class Filter
     {
         $quality = 10;
 
-        if ($dir = opendir($imgInfo['dirname'])) {
+        if ($dir = opendir($this->filterSrc($imgInfo['dirname']))) {
             $checkValidImage = getimagesize($imgPath);
 
             if ($checkValidImage) {

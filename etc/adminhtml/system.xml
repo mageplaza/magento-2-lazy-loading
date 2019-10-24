@@ -58,7 +58,7 @@
                 <field id="threshold" translate="label comment" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Distance Threshold</label>
                     <comment>Tính bằng px. Cài đặt khoảng cách của màn hình so với ảnh product khi scroll</comment>
-                    <validate>validate-greater-than-zero</validate>
+                    <validate>validate-number</validate>
                 </field>
                 <field id="loading_type" translate="label comment" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Loading Type</label>
