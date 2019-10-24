@@ -13,10 +13,10 @@
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
  *
- * @category    Mageplaza
- * @package     Mageplaza_LazyLoading
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
- * @license     https://www.mageplaza.com/LICENSE.txt
+ * @category  Mageplaza
+ * @package   Mageplaza_LazyLoading
+ * @copyright Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license   https://www.mageplaza.com/LICENSE.txt
  */
 
 namespace Mageplaza\LazyLoading\Block\Adminhtml\Config\Field;
@@ -25,6 +25,7 @@ use Magento\Config\Block\System\Config\Form\Field\FieldArray\AbstractFieldArray;
 
 /**
  * Class ExcludeText
+ *
  * @package Mageplaza\LazyLoading\Block\Adminhtml\Config\Field
  */
 class ExcludeText extends AbstractFieldArray
@@ -34,11 +35,14 @@ class ExcludeText extends AbstractFieldArray
      */
     protected function _prepareToRender()
     {
-        $this->addColumn('text', [
-            'label'    => __('Text') . '<span style="color: red">*</span>',
-            'renderer' => false,
-            'class'    => 'required-entry'
-        ]);
+        $this->addColumn(
+            'text',
+            [
+                'label'    => __('Text *'),
+                'renderer' => false,
+                'class'    => 'required-entry'
+            ]
+        );
 
         $this->_addAfter       = false;
         $this->_addButtonLabel = __('Add');

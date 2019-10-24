@@ -24,37 +24,37 @@
         'jquery',
         'lazyLoad'
     ], function ($) {
-        var excludeCss = <?= $block->getExcludeCss() ?>,
-            excludeText = <?= $block->getExcludeText() ?>;
-
-        function removeClass(img) {
-            img.removeClass('mplazyload');
-            img.removeClass('mplazyload-blur');
-            img.removeClass('mplazyload-icon');
-            img.removeClass('mplazyload-cms');
-        }
+        //var excludeCss = <?//= $block->getExcludeCss() ?>//,
+        //    excludeText = <?//= $block->getExcludeText() ?>//;
+        //
+        //function removeClass(img) {
+        //    img.removeClass('mplazyload');
+        //    img.removeClass('mplazyload-blur');
+        //    img.removeClass('mplazyload-icon');
+        //    img.removeClass('mplazyload-cms');
+        //}
 
         $(document).ready(function() {
-            $('img').each(function() {
-                var i, j, img = $(this),
-                    alt = img.attr('alt') ? img.attr('alt') : '',
-                    title = img.attr('title') ? img.attr('title') : '',
-                    src = img.attr('data-src');
-
-                for (i = 0; i < excludeCss.length; i++) {
-                    if (img.hasClass(excludeCss[i])) {
-                        img.attr('src', src);
-                        removeClass(img);
-                    }
-                }
-
-                for (j = 0; j < excludeText.length; j++) {
-                    if (alt.includes(excludeText[j]) || title.includes(excludeText[j])) {
-                        img.attr('src', src);
-                        removeClass(img);
-                    }
-                }
-            });
+            // $('img').each(function() {
+            //     var i, j, img = $(this),
+            //         alt = img.attr('alt') ? img.attr('alt') : '',
+            //         title = img.attr('title') ? img.attr('title') : '',
+            //         src = img.attr('data-src');
+            //
+            //     for (i = 0; i < excludeCss.length; i++) {
+            //         if (img.hasClass(excludeCss[i])) {
+            //             img.attr('src', src);
+            //             removeClass(img);
+            //         }
+            //     }
+            //
+            //     for (j = 0; j < excludeText.length; j++) {
+            //         if (alt.includes(excludeText[j]) || title.includes(excludeText[j])) {
+            //             img.attr('src', src);
+            //             removeClass(img);
+            //         }
+            //     }
+            // });
 
             $('.mplazyload').lazy({
                 threshold: <?= $block->getThreshold() ?>,

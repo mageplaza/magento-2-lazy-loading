@@ -13,10 +13,10 @@
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
  *
- * @category    Mageplaza
- * @package     Mageplaza_LazyLoading
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
- * @license     https://www.mageplaza.com/LICENSE.txt
+ * @category  Mageplaza
+ * @package   Mageplaza_LazyLoading
+ * @copyright Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license   https://www.mageplaza.com/LICENSE.txt
  */
 
 namespace Mageplaza\LazyLoading\Helper;
@@ -30,6 +30,7 @@ use Magento\Framework\View\Asset\Repository;
 
 /**
  * Class Data
+ *
  * @package Mageplaza\ProductFinder\Helper
  */
 class Data extends AbstractData
@@ -61,6 +62,9 @@ class Data extends AbstractData
         return $this->getConfigGeneral('apply_for');
     }
 
+    /**
+     * @return array
+     */
     public function getExcludePage()
     {
         $list  = [];
@@ -75,6 +79,9 @@ class Data extends AbstractData
         return $list;
     }
 
+    /**
+     * @return array
+     */
     public function getExcludeCss()
     {
         $result = [];
@@ -83,7 +90,8 @@ class Data extends AbstractData
             $result[] = $item['css_class'];
         }
 
-        return self::jsonEncode($result);
+        return $result;
+        //        return self::jsonEncode($result);
         //        return $this->getConfigGeneral('exclude_css');
     }
 
@@ -95,7 +103,29 @@ class Data extends AbstractData
             $result[] = $item['text'];
         }
 
-        return self::jsonEncode($result);
+        return $result;
+    }
+
+    public function isExcludeClass($class)
+    {
+        foreach ($this->getExcludeCss() as $item) {
+            if (in_array($item, $class, true)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function isExcludeText($text)
+    {
+        foreach ($this->getExcludeCss() as $item) {
+            if (strpos($text, $item) !== false) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function isLazyLoad($imageId = null)
@@ -109,7 +139,8 @@ class Data extends AbstractData
         }
 
         if (in_array($imageId, $this->relatedBlock, true)
-            && strpos($this->getApplyFor(), 'related') !== false) {
+            && strpos($this->getApplyFor(), 'related') !== false
+        ) {
             return true;
         }
 

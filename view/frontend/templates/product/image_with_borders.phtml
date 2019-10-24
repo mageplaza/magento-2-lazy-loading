@@ -20,28 +20,44 @@
  */
 ?>
 <?php /** @var $block \Magento\Catalog\Block\Product\Image */ ?>
-<?php if ($block->getLoadingType() === 'icon') : ?>
-    <span class="product-image-container"
-          style="width:<?= /* @escapeNotVerified */ $block->getWidth() ?>px;">
-        <span class="product-image-wrapper"
-              style="padding-bottom: <?= /* @escapeNotVerified */ ($block->getRatio() * 100) ?>%;">
-            <img class="mplazyload mplazyload-icon product-image-photo"
-                <?= /* @escapeNotVerified */ $block->getCustomAttributes() ?>
-                 src="<?= /* @escapeNotVerified */ $block->getIcon() ?>"
-                 max-width="<?= /* @escapeNotVerified */ $block->getWidth() ?>"
-                 max-height="<?= /* @escapeNotVerified */ $block->getHeight() ?>"
-                 alt="<?= /* @escapeNotVerified */ $block->stripTags($block->getLabel(), null, true) ?>"/></span>
-    </span>
+<?php if (!$block->getIsExclude()) : ?>
+    <?php if ($block->getLoadingType() === 'icon') : ?>
+        <span class="product-image-container"
+              style="width:<?= /* @escapeNotVerified */ $block->getWidth() ?>px;">
+            <span class="product-image-wrapper"
+                  style="padding-bottom: <?= /* @escapeNotVerified */ ($block->getRatio() * 100) ?>%;">
+                <img class="product-image-photo mplazyload mplazyload-icon"
+                    <?= /* @escapeNotVerified */ $block->getCustomAttributes() ?>
+                     src="<?= /* @escapeNotVerified */ $block->getIcon() ?>"
+                     max-width="<?= /* @escapeNotVerified */ $block->getWidth() ?>"
+                     max-height="<?= /* @escapeNotVerified */ $block->getHeight() ?>"
+                     alt="<?= /* @escapeNotVerified */ $block->stripTags($block->getLabel(), null, true) ?>"/>
+            </span>
+        </span>
+    <?php else : ?>
+        <span class="product-image-container"
+              style="width:<?= /* @escapeNotVerified */ $block->getWidth() ?>px;">
+            <span class="product-image-wrapper"
+                  style="padding-bottom: <?= /* @escapeNotVerified */ ($block->getRatio() * 100) ?>%;">
+                <img class="product-image-photo  mplazyload mplazyload-<?= $block->getPlaceholderType() ?>"
+                    <?= /* @escapeNotVerified */ $block->getCustomAttributes() ?>
+                     src="<?= /* @escapeNotVerified */ $block->getImageUrl() ?>"
+                     max-width="<?= /* @escapeNotVerified */ $block->getWidth() ?>"
+                     max-height="<?= /* @escapeNotVerified */ $block->getHeight() ?>"
+                     alt="<?= /* @escapeNotVerified */ $block->stripTags($block->getLabel(), null, true) ?>"/>
+            </span>
+        </span>
+    <?php endif; ?>
 <?php else : ?>
     <span class="product-image-container"
           style="width:<?= /* @escapeNotVerified */ $block->getWidth() ?>px;">
         <span class="product-image-wrapper"
               style="padding-bottom: <?= /* @escapeNotVerified */ ($block->getRatio() * 100) ?>%;">
-            <img class="mplazyload product-image-photo mplazyload-<?= $block->getPlaceholderType()?>"
-                <?= /* @escapeNotVerified */ $block->getCustomAttributes() ?>
+            <img class="product-image-photo"
                  src="<?= /* @escapeNotVerified */ $block->getImageUrl() ?>"
                  max-width="<?= /* @escapeNotVerified */ $block->getWidth() ?>"
                  max-height="<?= /* @escapeNotVerified */ $block->getHeight() ?>"
-                 alt="<?= /* @escapeNotVerified */ $block->stripTags($block->getLabel(), null, true) ?>"/></span>
+                 alt="<?= /* @escapeNotVerified */ $block->stripTags($block->getLabel(), null, true) ?>"/>
+        </span>
     </span>
 <?php endif; ?>

@@ -13,10 +13,10 @@
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
  *
- * @category    Mageplaza
- * @package     Mageplaza_LazyLoading
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
- * @license     https://www.mageplaza.com/LICENSE.txt
+ * @category  Mageplaza
+ * @package   Mageplaza_LazyLoading
+ * @copyright Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license   https://www.mageplaza.com/LICENSE.txt
  */
 
 namespace Mageplaza\LazyLoading\Block;
@@ -26,9 +26,9 @@ use Magento\Framework\View\Element\Template\Context;
 use Mageplaza\LazyLoading\Helper\Image as HelperImage;
 use Mageplaza\LazyLoading\Helper\Data as HelperData;
 
-
 /**
  * Class LazyLoad
+ *
  * @package Mageplaza\LazyLoading\Block
  */
 class LazyLoad extends Template
@@ -48,12 +48,12 @@ class LazyLoad extends Template
         parent::__construct($context, $data);
     }
 
-//    public function resizeIcon()
-//    {
-//        $icon = $this->helperData->getConfigGeneral('icon');
-//
-//        return $this->helperImage->resizeIcon($icon, $this->getResizeWith(), $this->getResizeHeight());
-//    }
+    //    public function resizeIcon()
+    //    {
+    //        $icon = $this->helperData->getConfigGeneral('icon');
+    //
+    //        return $this->helperImage->resizeIcon($icon, $this->getResizeWith(), $this->getResizeHeight());
+    //    }
 
     public function isLazyLoad()
     {
@@ -80,13 +80,13 @@ class LazyLoad extends Template
         return $this->helperData->getConfigGeneral('resize_height');
     }
 
-    public function getExcludeCss()
-    {
-        return $this->helperData->getExcludeCss();
-    }
-
-    public function getExcludeText()
-    {
-        return $this->helperData->getExcludeText();
-    }
+    //    public function getExcludeCss()
+    //    {
+    //        return HelperData::jsonEncode($this->helperData->getExcludeCss());
+    //    }
+    //
+    //    public function getExcludeText()
+    //    {
+    //        return HelperData::jsonEncode($this->helperData->getExcludeText());
+    //    }
 }
