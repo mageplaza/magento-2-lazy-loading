@@ -51,8 +51,9 @@ class Filter
 
         $placeHolder = '';
         $holderType  = '';
+        $loadingType = $this->helperData->getLoadingType();
 
-        if ($this->helperData->getLoadingType() === 'icon') {
+        if ($loadingType === 'icon') {
             $class       = 'mplazyload-icon mplazyload-cms';
             $placeHolder = $this->helperData->getIcon();
         } else {
@@ -68,7 +69,7 @@ class Filter
         $search   = [];
         foreach ($matches[0] as $img) {
             if ($img) {
-                if ($holderType !== 'transparent') {
+                if ($holderType !== 'transparent' && $loadingType === 'placeholder') {
                     $imgSrc  = $this->getImageSrc($img);
                     $imgPath = substr($imgSrc, strpos($imgSrc, 'pub'));
                     $imgInfo = $this->file->getPathInfo($imgPath);
