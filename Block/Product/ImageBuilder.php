@@ -95,7 +95,7 @@ class ImageBuilder extends \Magento\Catalog\Block\Product\ImageBuilder
             'loading_type'      => $loadingType,
             'icon'              => $this->helperData->getIcon(),
             'placeholder_type'  => $placeholderType,
-            'isExclude'         => $isExclude
+            'is_exclude'         => $isExclude
         ];
 
         $result = $this->imageFactory->create($product, $imageId, $attributes);
