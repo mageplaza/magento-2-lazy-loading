@@ -36,6 +36,14 @@ class ImageBuilder extends \Magento\Catalog\Block\Product\ImageBuilder
 {
     protected $helperData;
     protected $coreHelperImage;
+    protected $excludeClass = [
+        'product-image-photo',
+        'mplazyload',
+        'mplazyload-icon',
+        'mplazyload-blur',
+        'mplazyload-low',
+        'mplazyload-transparent'
+    ];
 
     public function __construct(
         HelperFactory $helperFactory,
@@ -76,9 +84,8 @@ class ImageBuilder extends \Magento\Catalog\Block\Product\ImageBuilder
             $lazyImg = $lazyImg->getUrl();
         }
         $isExclude = false;
-        if ($this->helperData->isExcludeText($imageFactory->getLabel())
-            || in_array('product-image-photo', $this->helperData->getExcludeCss(), true)
-        ) {
+
+        if ($this->checkExcludeClass() || $this->helperData->isExcludeText($imageFactory->getLabel())) {
             $lazyImg   = $imageFactory->getUrl();
             $isExclude = true;
         }
@@ -102,5 +109,16 @@ class ImageBuilder extends \Magento\Catalog\Block\Product\ImageBuilder
         $result->setData($data);
 
         return $result;
+    }
+
+    public function checkExcludeClass()
+    {
+        foreach ($this->excludeClass as $item) {
+            if (in_array($item, $this->helperData->getExcludeCss(), true)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
