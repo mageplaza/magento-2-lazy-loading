@@ -25,6 +25,7 @@ use Magento\Catalog\Block\Product\Image;
 use Magento\Catalog\Block\Product\ImageFactory;
 use Magento\Catalog\Helper\ImageFactory as HelperFactory;
 use Magento\Catalog\Model\Product;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Mageplaza\LazyLoading\Helper\Data as HelpData;
 use Magento\Catalog\Helper\Image as CoreHelpImage;
 
@@ -48,7 +49,7 @@ class ImageBuilder extends \Magento\Catalog\Block\Product\ImageBuilder
     /**
      * @var array
      */
-    protected $excludeClass = [
+    public $excludeClass = [
         'product-image-photo',
         'mplazyload',
         'mplazyload-icon',
@@ -78,10 +79,11 @@ class ImageBuilder extends \Magento\Catalog\Block\Product\ImageBuilder
 
     /**
      * @param Product|null $product
-     * @param string|null  $imageId
-     * @param array|null   $attributes
+     * @param string|null $imageId
+     * @param array|null $attributes
      *
      * @return Image
+     * @throws NoSuchEntityException
      */
     public function create(Product $product = null, string $imageId = null, array $attributes = null)
     {

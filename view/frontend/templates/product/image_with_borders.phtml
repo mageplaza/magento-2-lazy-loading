@@ -20,7 +20,19 @@
  */
 ?>
 <?php /** @var $block \Magento\Catalog\Block\Product\Image */ ?>
-<?php if (!$block->getIsExclude()) : ?>
+<?php if ($block->getIsExclude()) : ?>
+    <span class="product-image-container"
+          style="width:<?= /** @noEscape */ $block->getWidth() ?>px;">
+        <span class="product-image-wrapper"
+              style="padding-bottom: <?= /** @noEscape */ ($block->getRatio() * 100) ?>%;">
+            <img class="product-image-photo"
+                 src="<?= /** @noEscape */ $block->getImageUrl() ?>"
+                 width="<?= /** @noEscape */ $block->getWidth() ?>"
+                 height="<?= /** @noEscape */ $block->getHeight() ?>"
+                 alt="<?= /** @noEscape */ $block->stripTags($block->getLabel(), null, true) ?>"/>
+        </span>
+    </span>
+<?php else : ?>
     <?php if ($block->getLoadingType() === 'icon') : ?>
         <span class="product-image-container"
               style="width:<?= /** @noEscape */ $block->getWidth() ?>px;">
@@ -48,16 +60,4 @@
             </span>
         </span>
     <?php endif; ?>
-<?php else : ?>
-    <span class="product-image-container"
-          style="width:<?= /** @noEscape */ $block->getWidth() ?>px;">
-        <span class="product-image-wrapper"
-              style="padding-bottom: <?= /** @noEscape */ ($block->getRatio() * 100) ?>%;">
-            <img class="product-image-photo"
-                 src="<?= /** @noEscape */ $block->getImageUrl() ?>"
-                 width="<?= /** @noEscape */ $block->getWidth() ?>"
-                 height="<?= /** @noEscape */ $block->getHeight() ?>"
-                 alt="<?= /** @noEscape */ $block->stripTags($block->getLabel(), null, true) ?>"/>
-        </span>
-    </span>
 <?php endif; ?>

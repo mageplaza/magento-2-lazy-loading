@@ -27,7 +27,7 @@
     ], function ($) {
         $(document).ready(function() {
             $('.mplazyload').lazy({
-                threshold: <?= $block->getThreshold() ?>,
+                threshold: <?= /** @noEscape */ $block->getThreshold() ?>,
                 effect: "fadeIn",
                 effectTime: 1000,
                 afterLoad: function(e) {
@@ -52,8 +52,8 @@
 <style>
     img.mplazyload-icon {
         /*background: url(*/<?//= $block->getIcon() ?>/*);*/
-        width: <?= $block->getResizeWith() . 'px' ?>;
-        height: <?= $block->getResizeHeight() . 'px' ?>;
+        width: <?= /** @noEscape */ $block->getResizeWith() . 'px' ?>;
+        height: <?= /** @noEscape */ $block->getResizeHeight() . 'px' ?>;
     }
 
     img.mplazyload-cms {

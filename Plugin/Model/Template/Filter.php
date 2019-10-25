@@ -231,23 +231,23 @@ class Filter
         list($width, $height, $type) = getimagesize($srcImage);
         $newCanvas = imagecreatetruecolor($width, $height);
         switch (strtolower(image_type_to_mime_type($type))) {
-        case 'image/jpeg':
-            $newImage = imagecreatefromjpeg($srcImage);
-            break;
-        case 'image/JPEG':
-            $newImage = imagecreatefromjpeg($srcImage);
-            break;
-        case 'image/png':
-            $newImage = imagecreatefrompng($srcImage);
-            break;
-        case 'image/PNG':
-            $newImage = imagecreatefrompng($srcImage);
-            break;
-        case 'image/gif':
-            $newImage = imagecreatefromgif($srcImage);
-            break;
-        default:
-            return false;
+            case 'image/jpeg':
+                $newImage = imagecreatefromjpeg($srcImage);
+                break;
+            case 'image/JPEG':
+                $newImage = imagecreatefromjpeg($srcImage);
+                break;
+            case 'image/png':
+                $newImage = imagecreatefrompng($srcImage);
+                break;
+            case 'image/PNG':
+                $newImage = imagecreatefrompng($srcImage);
+                break;
+            case 'image/gif':
+                $newImage = imagecreatefromgif($srcImage);
+                break;
+            default:
+                return false;
         }
 
         if (imagecopyresampled(
@@ -269,5 +269,7 @@ class Filter
                 return true;
             }
         }
+
+        return false;
     }
 }
