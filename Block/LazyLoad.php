@@ -33,10 +33,24 @@ use Mageplaza\LazyLoading\Helper\Data as HelperData;
  */
 class LazyLoad extends Template
 {
+    /**
+     * @var HelperImage
+     */
     protected $helperImage;
-    protected $helperData;
-    protected $assetRepo;
 
+    /**
+     * @var HelperData
+     */
+    protected $helperData;
+
+    /**
+     * LazyLoad constructor.
+     *
+     * @param Context     $context
+     * @param HelperImage $helperImage
+     * @param HelperData  $helperData
+     * @param array       $data
+     */
     public function __construct(
         Context $context,
         HelperImage $helperImage,
@@ -48,45 +62,43 @@ class LazyLoad extends Template
         parent::__construct($context, $data);
     }
 
-    //    public function resizeIcon()
-    //    {
-    //        $icon = $this->helperData->getConfigGeneral('icon');
-    //
-    //        return $this->helperImage->resizeIcon($icon, $this->getResizeWith(), $this->getResizeHeight());
-    //    }
-
+    /**
+     * @return bool
+     */
     public function isLazyLoad()
     {
         return $this->helperData->isLazyLoad();
     }
 
+    /**
+     * @return mixed
+     */
     public function getLoadingType()
     {
         return $this->helperData->getLoadingType();
     }
 
+    /**
+     * @return mixed
+     */
     public function getThreshold()
     {
         return $this->helperData->getConfigGeneral('threshold');
     }
 
+    /**
+     * @return mixed
+     */
     public function getResizeWith()
     {
         return $this->helperData->getConfigGeneral('resize_width');
     }
 
+    /**
+     * @return mixed
+     */
     public function getResizeHeight()
     {
         return $this->helperData->getConfigGeneral('resize_height');
     }
-
-    //    public function getExcludeCss()
-    //    {
-    //        return HelperData::jsonEncode($this->helperData->getExcludeCss());
-    //    }
-    //
-    //    public function getExcludeText()
-    //    {
-    //        return HelperData::jsonEncode($this->helperData->getExcludeText());
-    //    }
 }

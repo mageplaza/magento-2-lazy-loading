@@ -21,6 +21,7 @@
 
 namespace Mageplaza\LazyLoading\Block\Product;
 
+use Magento\Catalog\Block\Product\Image;
 use Magento\Catalog\Block\Product\ImageFactory;
 use Magento\Catalog\Helper\ImageFactory as HelperFactory;
 use Magento\Catalog\Model\Product;
@@ -34,8 +35,19 @@ use Magento\Catalog\Helper\Image as CoreHelpImage;
  */
 class ImageBuilder extends \Magento\Catalog\Block\Product\ImageBuilder
 {
+    /**
+     * @var HelpData
+     */
     protected $helperData;
+
+    /**
+     * @var CoreHelpImage
+     */
     protected $coreHelperImage;
+
+    /**
+     * @var array
+     */
     protected $excludeClass = [
         'product-image-photo',
         'mplazyload',
@@ -45,6 +57,14 @@ class ImageBuilder extends \Magento\Catalog\Block\Product\ImageBuilder
         'mplazyload-transparent'
     ];
 
+    /**
+     * ImageBuilder constructor.
+     *
+     * @param HelperFactory $helperFactory
+     * @param ImageFactory  $imageFactory
+     * @param HelpData      $helperData
+     * @param CoreHelpImage $coreHelperImage
+     */
     public function __construct(
         HelperFactory $helperFactory,
         ImageFactory $imageFactory,
@@ -56,6 +76,13 @@ class ImageBuilder extends \Magento\Catalog\Block\Product\ImageBuilder
         parent::__construct($helperFactory, $imageFactory);
     }
 
+    /**
+     * @param Product|null $product
+     * @param string|null  $imageId
+     * @param array|null   $attributes
+     *
+     * @return Image
+     */
     public function create(Product $product = null, string $imageId = null, array $attributes = null)
     {
         $product    = $product ?: $this->product;
@@ -66,9 +93,6 @@ class ImageBuilder extends \Magento\Catalog\Block\Product\ImageBuilder
             return parent::create($product, $imageId, $attributes);
         }
 
-        /**
- * @var \Magento\Catalog\Helper\Image $helper 
-*/
         $imageFactory           = $this->helperFactory->create()->init($product, $imageId);
         $attributes['data-src'] = $imageFactory->getUrl();
         $this->setAttributes($attributes);
@@ -83,8 +107,8 @@ class ImageBuilder extends \Magento\Catalog\Block\Product\ImageBuilder
             $lazyImg = $this->coreHelperImage->init($product, $imageId, $attrs)->setQuality(10);
             $lazyImg = $lazyImg->getUrl();
         }
-        $isExclude = false;
 
+        $isExclude = false;
         if ($this->checkExcludeClass() || $this->helperData->isExcludeText($imageFactory->getLabel())) {
             $lazyImg   = $imageFactory->getUrl();
             $isExclude = true;
@@ -102,7 +126,7 @@ class ImageBuilder extends \Magento\Catalog\Block\Product\ImageBuilder
             'loading_type'      => $loadingType,
             'icon'              => $this->helperData->getIcon(),
             'placeholder_type'  => $placeholderType,
-            'is_exclude'         => $isExclude
+            'is_exclude'        => $isExclude
         ];
 
         $result = $this->imageFactory->create($product, $imageId, $attributes);
@@ -111,6 +135,9 @@ class ImageBuilder extends \Magento\Catalog\Block\Product\ImageBuilder
         return $result;
     }
 
+    /**
+     * @return bool
+     */
     public function checkExcludeClass()
     {
         foreach ($this->excludeClass as $item) {

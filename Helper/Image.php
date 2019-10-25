@@ -21,7 +21,6 @@
 
 namespace Mageplaza\LazyLoading\Helper;
 
-use Magento\Framework\Exception\NoSuchEntityException;
 use Mageplaza\Core\Helper\Media;
 
 /**
@@ -32,41 +31,4 @@ use Mageplaza\Core\Helper\Media;
 class Image extends Media
 {
     const TEMPLATE_MEDIA_PATH = 'mageplaza/lazyloading';
-
-    /**
-     * @param $file
-     * @param $width
-     * @param string $height
-     *
-     * @return string
-     * @throws NoSuchEntityException
-     */
-    //    public function resizeIcon($file, $width, $height)
-    //    {
-    //        $image = $this->getMediaPath($file);
-    //        $resizeImage = $this->getMediaPath($file, 'resized/' . $width . 'x' . $height);
-    //        $mediaDirectory = $this->getMediaDirectory();
-    //
-    //        if ($mediaDirectory->isFile($resizeImage)) {
-    //            $image = $resizeImage;
-    //        } else {
-    //            $imageResize = $this->imageFactory->create();
-    //            $imageResize->open($mediaDirectory->getAbsolutePath($image));
-    //            $imageResize->constrainOnly(true);
-    //            $imageResize->keepTransparency(true);
-    //            $imageResize->keepFrame(false);
-    //            $imageResize->keepAspectRatio(false);
-    //            $imageResize->resize($width, $height);
-    //
-    //            try {
-    //                $imageResize->save($mediaDirectory->getAbsolutePath($resizeImage));
-    //
-    //                $image = $resizeImage;
-    //            } catch (Exception $e) {
-    //                $this->_logger->critical($e->getMessage());
-    //            }
-    //        }
-    //
-    //        return $this->getMediaUrl($image);
-    //    }
 }

@@ -22,6 +22,7 @@
 namespace Mageplaza\LazyLoading\Helper;
 
 use Magento\Framework\App\Helper\Context;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Mageplaza\Core\Helper\AbstractData;
@@ -31,20 +32,41 @@ use Magento\Framework\View\Asset\Repository;
 /**
  * Class Data
  *
- * @package Mageplaza\ProductFinder\Helper
+ * @package Mageplaza\LazyLoading\Helper
  */
 class Data extends AbstractData
 {
     const CONFIG_MODULE_PATH = 'mplazyload';
     const DEFAULT_IMAGE      = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+
+    /**
+     * @var Image
+     */
     protected $helperImage;
+
+    /**
+     * @var Repository
+     */
     protected $assetRepo;
+
+    /**
+     * @var array
+     */
     public $relatedBlock = [
         'related_products_list',
         'upsell_products_list',
         'cart_cross_sell_products'
     ];
 
+    /**
+     * Data constructor.
+     *
+     * @param Context                $context
+     * @param ObjectManagerInterface $objectManager
+     * @param StoreManagerInterface  $storeManager
+     * @param Image                  $helperImage
+     * @param Repository             $assetRepo
+     */
     public function __construct(
         Context $context,
         ObjectManagerInterface $objectManager,
@@ -57,6 +79,9 @@ class Data extends AbstractData
         parent::__construct($context, $objectManager, $storeManager);
     }
 
+    /**
+     * @return mixed
+     */
     public function getApplyFor()
     {
         return $this->getConfigGeneral('apply_for');
@@ -91,10 +116,11 @@ class Data extends AbstractData
         }
 
         return $result;
-        //        return self::jsonEncode($result);
-        //        return $this->getConfigGeneral('exclude_css');
     }
 
+    /**
+     * @return array
+     */
     public function getExcludeText()
     {
         $result = [];
@@ -106,6 +132,11 @@ class Data extends AbstractData
         return $result;
     }
 
+    /**
+     * @param $class
+     *
+     * @return bool
+     */
     public function isExcludeClass($class)
     {
         foreach ($this->getExcludeCss() as $item) {
@@ -117,6 +148,11 @@ class Data extends AbstractData
         return false;
     }
 
+    /**
+     * @param $text
+     *
+     * @return bool
+     */
     public function isExcludeText($text)
     {
         foreach ($this->getExcludeText() as $item) {
@@ -128,6 +164,11 @@ class Data extends AbstractData
         return false;
     }
 
+    /**
+     * @param null $imageId
+     *
+     * @return bool
+     */
     public function isLazyLoad($imageId = null)
     {
         if (!$this->isEnabled()) {
@@ -159,6 +200,12 @@ class Data extends AbstractData
         return false;
     }
 
+    /**
+     * @param $page
+     * @param $fullActionName
+     *
+     * @return bool
+     */
     public function checkApplyFor($page, $fullActionName)
     {
         $currentUrl = $this->_urlBuilder->getCurrentUrl();
@@ -174,11 +221,18 @@ class Data extends AbstractData
             && strpos($this->_getRequest()->getFullActionName(), $fullActionName) !== false;
     }
 
+    /**
+     * @return string
+     */
     public function getDefaultIcon()
     {
         return $this->assetRepo->getUrl('Mageplaza_LazyLoading::mageplaza/lazyloading/loader.gif');
     }
 
+    /**
+     * @return string
+     * @throws NoSuchEntityException
+     */
     public function getIcon()
     {
         if ($icon = $this->getConfigGeneral('icon')) {
@@ -188,11 +242,17 @@ class Data extends AbstractData
         return $this->getDefaultIcon();
     }
 
+    /**
+     * @return mixed
+     */
     public function getLoadingType()
     {
         return $this->getConfigGeneral('loading_type');
     }
 
+    /**
+     * @return mixed
+     */
     public function getPlaceholderType()
     {
         return $this->getConfigGeneral('placeholder_type');

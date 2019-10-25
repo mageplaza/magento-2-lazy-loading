@@ -25,39 +25,8 @@
         'lazyLoad',
         // 'Mageplaza_LazyLoading/js/lib/jquery.unveil'
     ], function ($) {
-        //var excludeCss = <?//= $block->getExcludeCss() ?>//,
-        //    excludeText = <?//= $block->getExcludeText() ?>//;
-        //
-        //function removeClass(img) {
-        //    img.removeClass('mplazyload');
-        //    img.removeClass('mplazyload-blur');
-        //    img.removeClass('mplazyload-icon');
-        //    img.removeClass('mplazyload-cms');
-        //}
-
         $(document).ready(function() {
-            // $('img').each(function() {
-            //     var i, j, img = $(this),
-            //         alt = img.attr('alt') ? img.attr('alt') : '',
-            //         title = img.attr('title') ? img.attr('title') : '',
-            //         src = img.attr('data-src');
-            //
-            //     for (i = 0; i < excludeCss.length; i++) {
-            //         if (img.hasClass(excludeCss[i])) {
-            //             img.attr('src', src);
-            //             removeClass(img);
-            //         }
-            //     }
-            //
-            //     for (j = 0; j < excludeText.length; j++) {
-            //         if (alt.includes(excludeText[j]) || title.includes(excludeText[j])) {
-            //             img.attr('src', src);
-            //             removeClass(img);
-            //         }
-            //     }
-            // });
-
-            $('img').lazy({
+            $('.mplazyload').lazy({
                 threshold: <?= $block->getThreshold() ?>,
                 effect: "fadeIn",
                 effectTime: 1000,
@@ -67,7 +36,7 @@
                     e.removeClass('mplazyload-cms');
                 },
             });
-
+            // $('.mplazyload').trigger('lazy');
             //$('.mplazyload').unveil(<?//= $block->getThreshold() ?>//, function() {
             //    $(this).load(function() {
             //        // this.style.opacity = 1;
@@ -81,17 +50,16 @@
 </script>
 
 <style>
-    /*img.mplazyload {*/
-    /*    opacity: 0.5;*/
-    /*    transition: opacity 1s ease-in;*/
-    /*}*/
     img.mplazyload-icon {
+        /*background: url(*/<?//= $block->getIcon() ?>/*);*/
         width: <?= $block->getResizeWith() . 'px' ?>;
         height: <?= $block->getResizeHeight() . 'px' ?>;
     }
+
     img.mplazyload-cms {
         padding-left: 50%;
     }
+
     img.mplazyload-blur {
         transition: 0.3s filter linear;
         -o-transition: 0.3s -o-filter linear;

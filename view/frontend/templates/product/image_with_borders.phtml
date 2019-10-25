@@ -23,41 +23,41 @@
 <?php if (!$block->getIsExclude()) : ?>
     <?php if ($block->getLoadingType() === 'icon') : ?>
         <span class="product-image-container"
-              style="width:<?= /* @escapeNotVerified */ $block->getWidth() ?>px;">
+              style="width:<?= /** @noEscape */ $block->getWidth() ?>px;">
             <span class="product-image-wrapper"
                   style="padding-bottom: <?= /* @escapeNotVerified */ ($block->getRatio() * 100) ?>%;">
                 <img class="product-image-photo mplazyload mplazyload-icon"
-                    <?= /* @escapeNotVerified */ $block->getCustomAttributes() ?>
-                     src="<?= /* @escapeNotVerified */ $block->getIcon() ?>"
-                     max-width="<?= /* @escapeNotVerified */ $block->getWidth() ?>"
-                     max-height="<?= /* @escapeNotVerified */ $block->getHeight() ?>"
-                     alt="<?= /* @escapeNotVerified */ $block->stripTags($block->getLabel(), null, true) ?>"/>
+                    <?= /** @noEscape */ $block->getCustomAttributes() ?>
+                     src="<?= /** @noEscape */ $block->getIcon() ?>"
+                     width="<?= /** @noEscape */ $block->getWidth() ?>"
+                     height="<?= /** @noEscape */ $block->getHeight() ?>"
+                     alt="<?= /** @noEscape */ $block->stripTags($block->getLabel(), null, true) ?>"/>
             </span>
         </span>
     <?php else : ?>
         <span class="product-image-container"
-              style="width:<?= /* @escapeNotVerified */ $block->getWidth() ?>px;">
+              style="width:<?= /** @noEscape */ $block->getWidth() ?>px;">
             <span class="product-image-wrapper"
                   style="padding-bottom: <?= /* @escapeNotVerified */ ($block->getRatio() * 100) ?>%;">
-                <img class="product-image-photo mplazyload mplazyload-<?= $block->getPlaceholderType() ?>"
-                    <?= /* @escapeNotVerified */ $block->getCustomAttributes() ?>
-                     src="<?= /* @escapeNotVerified */ $block->getImageUrl() ?>"
-                     max-width="<?= /* @escapeNotVerified */ $block->getWidth() ?>"
-                     max-height="<?= /* @escapeNotVerified */ $block->getHeight() ?>"
-                     alt="<?= /* @escapeNotVerified */ $block->stripTags($block->getLabel(), null, true) ?>"/>
+                <img class="product-image-photo mplazyload mplazyload-<?= /** @noEscape */ $block->getPlaceholderType() ?>"
+                    <?= /** @noEscape */ $block->getCustomAttributes() ?>
+                     src="<?= /** @noEscape */ $block->getImageUrl() ?>"
+                     width="<?= /** @noEscape */ $block->getWidth() ?>"
+                     height="<?= /** @noEscape */ $block->getHeight() ?>"
+                     alt="<?= /** @noEscape */ $block->stripTags($block->getLabel(), null, true) ?>"/>
             </span>
         </span>
     <?php endif; ?>
 <?php else : ?>
     <span class="product-image-container"
-          style="width:<?= /* @escapeNotVerified */ $block->getWidth() ?>px;">
+          style="width:<?= /** @noEscape */ $block->getWidth() ?>px;">
         <span class="product-image-wrapper"
-              style="padding-bottom: <?= /* @escapeNotVerified */ ($block->getRatio() * 100) ?>%;">
+              style="padding-bottom: <?= /** @noEscape */ ($block->getRatio() * 100) ?>%;">
             <img class="product-image-photo"
-                 src="<?= /* @escapeNotVerified */ $block->getImageUrl() ?>"
-                 max-width="<?= /* @escapeNotVerified */ $block->getWidth() ?>"
-                 max-height="<?= /* @escapeNotVerified */ $block->getHeight() ?>"
-                 alt="<?= /* @escapeNotVerified */ $block->stripTags($block->getLabel(), null, true) ?>"/>
+                 src="<?= /** @noEscape */ $block->getImageUrl() ?>"
+                 width="<?= /** @noEscape */ $block->getWidth() ?>"
+                 height="<?= /** @noEscape */ $block->getHeight() ?>"
+                 alt="<?= /** @noEscape */ $block->stripTags($block->getLabel(), null, true) ?>"/>
         </span>
     </span>
 <?php endif; ?>

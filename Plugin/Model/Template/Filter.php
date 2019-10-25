@@ -22,17 +22,45 @@
 namespace Mageplaza\LazyLoading\Plugin\Model\Template;
 
 use Magento\Cms\Model\Template\Filter as CmsFilter;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Mageplaza\LazyLoading\Helper\Data as HelperData;
 use Mageplaza\LazyLoading\Helper\Image as HelperImage;
 use Magento\Framework\Filesystem\Io\File;
 
+/**
+ * Class Filter
+ *
+ * @package Mageplaza\LazyLoading\Plugin\Model\Template
+ */
 class Filter
 {
+    /**
+     * @var HelperData
+     */
     protected $helperData;
+
+    /**
+     * @var HelperImage
+     */
     protected $helperImage;
+
+    /**
+     * @var File
+     */
     protected $file;
+
+    /**
+     * @var string
+     */
     protected $moveImgTo = 'pub/media/mageplaza/lazyloading/';
 
+    /**
+     * Filter constructor.
+     *
+     * @param HelperData  $helperData
+     * @param HelperImage $helperImage
+     * @param File        $file
+     */
     public function __construct(
         HelperData $helperData,
         HelperImage $helperImage,
@@ -43,6 +71,14 @@ class Filter
         $this->file        = $file;
     }
 
+    /**
+     * @param CmsFilter $filter
+     * @param $result
+     *
+     * @return mixed
+     * @throws NoSuchEntityException
+     * @SuppressWarnings("Unused")
+     */
     public function afterFilter(CmsFilter $filter, $result)
     {
         if (!$this->helperData->isEnabled() || !$this->helperData->isLazyLoad()) {
@@ -63,20 +99,13 @@ class Filter
                 $placeHolder = HelperData::DEFAULT_IMAGE;
             }
         }
-        /*        preg_match_all('/<img((.(?!class=))*)\/?>/', $result, $matches);*/
+
         preg_match_all('/<img.*?src="(.*?)"[^\>]+>/', $result, $matches);
-        //        preg_match_all('/<img/', $result, $test);
-        //        \Zend_Debug::dump($test);
         $replaced = [];
         $search   = [];
+
         foreach ($matches[0] as $img) {
-            //            preg_match('/(alt|title)\s*=\s*"(.+?)"/', $img, $test);
-            //            \Zend_Debug::dump($test);die;
-            //            \Zend_Debug::dump($this->getImageClass($img));die;
-            if ($img
-                && (!$this->helperData->isExcludeClass($this->getImageClass($img))
-                || !$this->helperData->isExcludeText($this->getImageText($img)))
-            ) {
+            if ($img && !$this->helperData->isExcludeText($this->getImageText($img))) {
                 if ($holderType !== 'transparent' && $loadingType === 'placeholder') {
                     $imgSrc  = $this->getImageSrc($img);
                     $imgPath = substr($imgSrc, strpos($imgSrc, 'pub'));
@@ -87,7 +116,6 @@ class Filter
                         . $imgInfo['basename'];
                 }
 
-                //                \Zend_Debug::dump($test);
                 if (strpos($img, 'class="') !== false) {
                     $newClass = str_replace('class="', 'class="' . $class . ' ', $img);
                 } else {
@@ -106,6 +134,11 @@ class Filter
         return str_replace($search, $replaced, $result);
     }
 
+    /**
+     * @param $path
+     *
+     * @return string
+     */
     public function filterSrc($path)
     {
         if (strpos($path, '/version') !== false) {
@@ -118,6 +151,11 @@ class Filter
         return $path;
     }
 
+    /**
+     * @param $img
+     *
+     * @return array
+     */
     public function getImageClass($img)
     {
         preg_match('/class\s*=\s*"(.+?)"/', $img, $matches);
@@ -128,6 +166,11 @@ class Filter
         return [];
     }
 
+    /**
+     * @param $img
+     *
+     * @return null
+     */
     public function getImageText($img)
     {
         preg_match('/alt\s*=\s*"(.+?)"/', $img, $alt);
@@ -146,6 +189,11 @@ class Filter
         return $result ?: null;
     }
 
+    /**
+     * @param $img
+     *
+     * @return mixed
+     */
     public function getImageSrc($img)
     {
         preg_match('/src\s*=\s*"(.+?)"/', $img, $matches);
@@ -153,6 +201,10 @@ class Filter
         return $matches[1];
     }
 
+    /**
+     * @param $imgPath
+     * @param $imgInfo
+     */
     public function optimizeImage($imgPath, $imgInfo)
     {
         $quality = 10;
@@ -167,6 +219,13 @@ class Filter
         }
     }
 
+    /**
+     * @param $srcImage
+     * @param $destImage
+     * @param $imageQuality
+     *
+     * @return bool
+     */
     public function changeQuality($srcImage, $destImage, $imageQuality)
     {
         list($width, $height, $type) = getimagesize($srcImage);

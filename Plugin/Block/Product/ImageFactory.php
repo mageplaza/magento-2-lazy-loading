@@ -31,23 +31,33 @@ use Mageplaza\LazyLoading\Helper\Data as HelperData;
  */
 class ImageFactory
 {
+    /**
+     * @var HelperData
+     */
     protected $helperData;
 
+    /**
+     * ImageFactory constructor.
+     *
+     * @param HelperData $helperData
+     */
     public function __construct(
         HelperData $helperData
     ) {
-        $this->helperData    = $helperData;
+        $this->helperData = $helperData;
     }
 
+    /**
+     * @param CoreImageFactory $subject
+     * @param $result
+     *
+     * @return mixed
+     * @SuppressWarnings("Unused")
+     */
     public function afterCreate(CoreImageFactory $subject, $result)
     {
         if ($this->helperData->isEnabled()) {
-            //            $lowRes = $this->coreHelperImage->setQuality(10);
-            //            $data             = $result->getData();
-            //            $data['template'] = 'Mageplaza_LazyLoading::product/image_with_borders.phtml';
-            //            $data['low_image'] = $lowRes->getUrl();
             $result->setTemplate('Mageplaza_LazyLoading::product/image_with_borders.phtml');
-            //            return $this->objectManager->create(\Mageplaza\LazyLoading\Block\Product\Image::class, ['data' => $data]);
         }
 
         return $result;
