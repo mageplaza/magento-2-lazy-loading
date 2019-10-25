@@ -119,7 +119,7 @@ class Data extends AbstractData
 
     public function isExcludeText($text)
     {
-        foreach ($this->getExcludeCss() as $item) {
+        foreach ($this->getExcludeText() as $item) {
             if (strpos($text, $item) !== false) {
                 return true;
             }
