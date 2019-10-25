@@ -95,8 +95,11 @@ class Filter
                 }
 
                 $strProcess = str_replace('src="', 'src="' . $placeHolder . '" data-src="', $newClass);
-                $replaced[] = $strProcess;
-                $search[]   = $img;
+
+                if (!$this->helperData->isExcludeClass($this->getImageClass($strProcess))) {
+                    $replaced[] = $strProcess;
+                    $search[]   = $img;
+                }
             }
         }
 
