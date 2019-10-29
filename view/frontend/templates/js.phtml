@@ -26,7 +26,7 @@
         // 'Mageplaza_LazyLoading/js/lib/jquery.unveil'
     ], function ($) {
         // $(window).on("load", function() {
-            // $(document).ready(function() {
+            $(document).ready(function() {
                 $('.mplazyload').lazy({
                     threshold: <?= /** @noEscape */ $block->getThreshold() ?>,
                     effect: "fadeIn",
@@ -37,7 +37,7 @@
                         e.removeClass('mplazyload-cms');
                     },
                 });
-            // });
+            });
         // });
         //$(document).ready(function() {
         //    // debugger;
