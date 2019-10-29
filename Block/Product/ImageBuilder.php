@@ -28,7 +28,6 @@ use Magento\Catalog\Model\Product;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Mageplaza\LazyLoading\Helper\Data as HelpData;
 use Magento\Catalog\Helper\Image as CoreHelpImage;
-use Magento\Framework\App\Request\Http;
 
 /**
  * Class ImageBuilder
@@ -46,11 +45,6 @@ class ImageBuilder extends \Magento\Catalog\Block\Product\ImageBuilder
      * @var CoreHelpImage
      */
     protected $coreHelperImage;
-
-    /**
-     * @var Http
-     */
-    protected $request;
 
     /**
      * @var array
@@ -71,18 +65,15 @@ class ImageBuilder extends \Magento\Catalog\Block\Product\ImageBuilder
      * @param ImageFactory $imageFactory
      * @param HelpData $helperData
      * @param CoreHelpImage $coreHelperImage
-     * @param Http $request
      */
     public function __construct(
         HelperFactory $helperFactory,
         ImageFactory $imageFactory,
         HelpData $helperData,
-        CoreHelpImage $coreHelperImage,
-        Http $request
+        CoreHelpImage $coreHelperImage
     ) {
         $this->helperData      = $helperData;
         $this->coreHelperImage = $coreHelperImage;
-        $this->request         = $request;
         parent::__construct($helperFactory, $imageFactory);
     }
 

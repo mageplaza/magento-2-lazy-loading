@@ -23,7 +23,6 @@ namespace Mageplaza\LazyLoading\Block;
 
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
-use Mageplaza\LazyLoading\Helper\Image as HelperImage;
 use Mageplaza\LazyLoading\Helper\Data as HelperData;
 
 /**
@@ -34,11 +33,6 @@ use Mageplaza\LazyLoading\Helper\Data as HelperData;
 class LazyLoad extends Template
 {
     /**
-     * @var HelperImage
-     */
-    protected $helperImage;
-
-    /**
      * @var HelperData
      */
     protected $helperData;
@@ -47,17 +41,14 @@ class LazyLoad extends Template
      * LazyLoad constructor.
      *
      * @param Context     $context
-     * @param HelperImage $helperImage
      * @param HelperData  $helperData
      * @param array       $data
      */
     public function __construct(
         Context $context,
-        HelperImage $helperImage,
         HelperData $helperData,
         array $data = []
     ) {
-        $this->helperImage = $helperImage;
         $this->helperData  = $helperData;
         parent::__construct($context, $data);
     }

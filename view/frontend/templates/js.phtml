@@ -22,45 +22,19 @@
 <script>
     require([
         'jquery'
-        // 'lazyLoad'
-        // 'Mageplaza_LazyLoading/js/lib/jquery.unveil'
     ], function ($) {
-        // $(window).on("load", function() {
-            $(document).ready(function() {
-                $('.mplazyload').lazy({
-                    threshold: <?= /** @noEscape */ $block->getThreshold() ?>,
-                    effect: "fadeIn",
-                    effectTime: 1000,
-                    afterLoad: function(e) {
-                        e.removeClass('mplazyload-blur');
-                        e.removeClass('mplazyload-icon');
-                        e.removeClass('mplazyload-cms');
-                    },
-                });
+        $(document).ready(function () {
+            $('.mplazyload').lazy({
+                threshold: <?= /** @noEscape */ $block->getThreshold() ?>,
+                effect: "fadeIn",
+                effectTime: 1000,
+                afterLoad: function (e) {
+                    e.removeClass('mplazyload-blur');
+                    e.removeClass('mplazyload-icon');
+                    e.removeClass('mplazyload-cms');
+                }
             });
-        // });
-        //$(document).ready(function() {
-        //    // debugger;
-        //    $('.mplazyload').lazy({
-        //        threshold: <?//= /** @noEscape */ $block->getThreshold() ?>//,
-        //        effect: "fadeIn",
-        //        effectTime: 1000,
-        //        afterLoad: function(e) {
-        //            e.removeClass('mplazyload-blur');
-        //            e.removeClass('mplazyload-icon');
-        //            e.removeClass('mplazyload-cms');
-        //        },
-        //    });
-            // $('.mplazyload').trigger('lazy');
-            //$('.mplazyload').unveil(<?//= $block->getThreshold() ?>//, function() {
-            //    $(this).load(function() {
-            //        // this.style.opacity = 1;
-            //        $(this).removeClass('mplazyload-blur');
-            //        $(this).removeClass('mplazyload-icon');
-            //        $(this).removeClass('mplazyload-cms');
-            //    });
-            //});
-        // });
+        });
     });
 </script>
 
