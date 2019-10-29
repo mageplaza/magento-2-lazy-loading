@@ -131,6 +131,10 @@ class ImageBuilder extends \Magento\Catalog\Block\Product\ImageBuilder
             'is_exclude'        => $isExclude
         ];
 
+        if ($this->helperData->versionCompare('2.3.0', '<=')) {
+            return $this->imageFactory->create(['data' => $data]);
+        }
+
         $result = $this->imageFactory->create($product, $imageId, $attributes);
         $result->setData($data);
 
