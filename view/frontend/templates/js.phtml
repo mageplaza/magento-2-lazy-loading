@@ -21,21 +21,36 @@
 ?>
 <script>
     require([
-        'jquery',
-        'lazyLoad',
+        'jquery'
+        // 'lazyLoad'
         // 'Mageplaza_LazyLoading/js/lib/jquery.unveil'
     ], function ($) {
-        $(document).ready(function() {
-            $('.mplazyload').lazy({
-                threshold: <?= /** @noEscape */ $block->getThreshold() ?>,
-                effect: "fadeIn",
-                effectTime: 1000,
-                afterLoad: function(e) {
-                    e.removeClass('mplazyload-blur');
-                    e.removeClass('mplazyload-icon');
-                    e.removeClass('mplazyload-cms');
-                },
-            });
+        // $(window).on("load", function() {
+            // $(document).ready(function() {
+                $('.mplazyload').lazy({
+                    threshold: <?= /** @noEscape */ $block->getThreshold() ?>,
+                    effect: "fadeIn",
+                    effectTime: 1000,
+                    afterLoad: function(e) {
+                        e.removeClass('mplazyload-blur');
+                        e.removeClass('mplazyload-icon');
+                        e.removeClass('mplazyload-cms');
+                    },
+                });
+            // });
+        // });
+        //$(document).ready(function() {
+        //    // debugger;
+        //    $('.mplazyload').lazy({
+        //        threshold: <?//= /** @noEscape */ $block->getThreshold() ?>//,
+        //        effect: "fadeIn",
+        //        effectTime: 1000,
+        //        afterLoad: function(e) {
+        //            e.removeClass('mplazyload-blur');
+        //            e.removeClass('mplazyload-icon');
+        //            e.removeClass('mplazyload-cms');
+        //        },
+        //    });
             // $('.mplazyload').trigger('lazy');
             //$('.mplazyload').unveil(<?//= $block->getThreshold() ?>//, function() {
             //    $(this).load(function() {
@@ -45,7 +60,7 @@
             //        $(this).removeClass('mplazyload-cms');
             //    });
             //});
-        });
+        // });
     });
 </script>
 
@@ -56,7 +71,7 @@
     }
 
     img.mplazyload-cms {
-        padding-left: 50%;
+        padding-left: 45%;
     }
 
     img.mplazyload-blur {

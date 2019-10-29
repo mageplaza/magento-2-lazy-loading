@@ -1,0 +1,36 @@
+<?xml version="1.0"?><!--
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_LazyLoading
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="empty" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+<!--        <script src="Mageplaza_LazyLoading::js/lib/jquery-3.4.1.min.js"/>-->
+        <script src="jquery.js"/>
+        <script src="Mageplaza_LazyLoading::js/lib/jquery.lazy.min.js"/>
+    </head>
+    <body>
+        <container name="test.container" as="someContainer" label="Some Container" htmlTag="div" htmlClass="some-container">
+            <block class="Mageplaza\LazyLoading\Block\Index" name="mplazyloadtest" template="Mageplaza_LazyLoading::test.phtml" />
+        </container>
+<!--        <referenceContainer name="content">-->
+<!--            <block class="Mageplaza\LazyLoading\Block\Index" name="mplazyloadtest" template="Mageplaza_LazyLoading::test.phtml" />-->
+<!--        </referenceContainer>-->
+    </body>
+</page>
