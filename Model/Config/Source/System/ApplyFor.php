@@ -44,7 +44,7 @@ class ApplyFor implements ArrayInterface
             ['value' => self::CATEGORY_PAGE, 'label' => __('Category Page')],
             ['value' => self::PRODUCT_PAGE, 'label' => __('Product Detail Page')],
             ['value' => self::CMS_PAGE, 'label' => __('CMS Page')],
-            ['value' => self::SEARCH_PAGE, 'label' => __('Search Page')],
+            ['value' => self::SEARCH_PAGE, 'label' => __('Search Result Page')],
             ['value' => self::RELATED_BLOCK, 'label' => __('Related, Cross-Sell, Up-Sell Products')]
         ];
     }

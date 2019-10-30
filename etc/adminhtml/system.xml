@@ -53,7 +53,7 @@
                     <label>Exclude Text</label>
                     <frontend_model>Mageplaza\LazyLoading\Block\Adminhtml\Config\Field\ExcludeText</frontend_model>
                     <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
-                    <comment><![CDATA[Image title or image name contains the text above will not be applied with lazy loading<br>Example: &lt;img title="lifelong-product" src="download.jpg"/&gt; hoặc &lt;img alt="lifelong" src="lifelong.jpg"/&gt; . If "lifelong" is an excluded text, this image is not applied with lazy loading.]]></comment>
+                    <comment><![CDATA[Image title or image name contains the text above will not be applied with lazy loading<br>Example: &lt;img title="lifelong-product" src="download.jpg"/&gt; or &lt;img alt="lifelong" src="lifelong.jpg"/&gt; . If "lifelong" is an excluded text, this image is not applied with lazy loading.]]></comment>
                 </field>
                 <field id="threshold" translate="label comment" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Loading Threshold</label>
