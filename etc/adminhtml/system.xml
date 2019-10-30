@@ -38,7 +38,7 @@
                     <source_model>Mageplaza\LazyLoading\Model\Config\Source\System\ApplyFor</source_model>
                 </field>
                 <field id="exclude_page" translate="label comment" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Exclude Page With URL Contains</label>
+                    <label>Exclude Pages With URL Including</label>
                     <frontend_model>Mageplaza\LazyLoading\Block\Adminhtml\Config\Field\ExcludePage</frontend_model>
                     <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
                     <comment><![CDATA[Page(s) with URL(s) containing the above path(s) will not selected to apply lazy loading<br>Example: /gear.html]]></comment>
@@ -47,17 +47,17 @@
                     <label>Exclude CSS Class</label>
                     <frontend_model>Mageplaza\LazyLoading\Block\Adminhtml\Config\Field\ExcludeCss</frontend_model>
                     <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
-                    <comment><![CDATA[Ảnh chứa css class trên sẽ ko áp dụng lazy loading<br>Example: &lt;img class="downloadable-product" src="lifelong.jpg"/&gt;. Nếu điền `downloadable-product` thì ảnh này ko áp dụng lazy loading]]></comment>
+                    <comment><![CDATA[Images including css class above will not be applied with lazy loading<br>Example: &lt;img class="downloadable-product" src="lifelong.jpg"/&gt;. If "downloadable-product" is excluded, the image will not be applied with lazy loading.]]></comment>
                 </field>
                 <field id="exclude_text" translate="label comment" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Exclude Text</label>
                     <frontend_model>Mageplaza\LazyLoading\Block\Adminhtml\Config\Field\ExcludeText</frontend_model>
                     <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
-                    <comment><![CDATA[Image tag chứa đoạn text  trên sẽ ko áp dụng lazy loading<br>Example: &lt;img class="lifelong-product" src="download.jpg"/&gt; hoặc &lt;img src="lifelong.jpg"/&gt; . Nếu điền `lifelong` thì ảnh này ko áp dụng lazy loading]]></comment>
+                    <comment><![CDATA[Image title or image name contains the text above will not be applied with lazy loading<br>Example: &lt;img title="lifelong-product" src="download.jpg"/&gt; hoặc &lt;img alt="lifelong" src="lifelong.jpg"/&gt; . If "lifelong" is an excluded text, this image is not applied with lazy loading.]]></comment>
                 </field>
                 <field id="threshold" translate="label comment" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Distance Threshold</label>
-                    <comment>Tính bằng px. Cài đặt khoảng cách của màn hình so với ảnh product khi scroll</comment>
+                    <label>Loading Threshold</label>
+                    <comment><![CDATA[When no threshold is set, images will immediately load when they appear on screen. Defining a threshold (in pixels) will start pre-loading any images that appear outside the viewport<br>For example, if the threshold is 200px, the image load appears within 200px from the viewport.]]></comment>
                     <validate>validate-number</validate>
                 </field>
                 <field id="loading_type" translate="label comment" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
@@ -69,7 +69,7 @@
                     <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
                     <upload_dir config="system/filesystem/media" scope_info="1">mageplaza/lazyloading</upload_dir>
                     <base_url type="media" scope_info="1">mageplaza/lazyloading</base_url>
-                    <comment><![CDATA[Upload icon for loading. If no file is chosen, the default icon will be used (gif, jpg, svg, png)<br>Recommend: 64x64]]></comment>
+                    <comment><![CDATA[Upload loading icon. Support gif, jpg, svg, png. If no file is chosen, the default icon will be used. <br>Recommended: 64x64 px]]></comment>
                     <depends>
                         <field id="mplazyload/general/loading_type">icon</field>
                     </depends>
