@@ -57,9 +57,9 @@ class Filter
     /**
      * Filter constructor.
      *
-     * @param HelperData  $helperData
+     * @param HelperData $helperData
      * @param HelperImage $helperImage
-     * @param File        $file
+     * @param File $file
      */
     public function __construct(
         HelperData $helperData,
@@ -175,11 +175,16 @@ class Filter
     {
         preg_match('/alt\s*=\s*"(.+?)"/', $img, $alt);
         preg_match('/title\s*=\s*"(.+?)"/', $img, $title);
+        preg_match('/src\s*=\s*"(.+?)"/', $img, $src);
 
         $result = '';
 
         if ($alt) {
             $result .= $alt[1];
+        } elseif ($this->helperData->getConfigValue('seo/general/enabled')
+            && $this->helperData->getConfigValue('seo/seo_rule/enable_automate_alt_image')) {
+            $imgName = substr($src[1], strrpos($src[1], '/'));
+            $result  .= preg_replace('/.jpg|.png|.gif|.bmp|.svg|\/|-/', '', $imgName);
         }
 
         if ($title) {
