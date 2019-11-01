@@ -179,7 +179,7 @@ class Filter
 
         $result = '';
 
-        if ($alt) {
+        if ($alt && strpos($alt[1], 'title="') !== false) {
             $result .= $alt[1];
         } elseif ($this->helperData->getConfigValue('seo/general/enabled')
             && $this->helperData->getConfigValue('seo/seo_rule/enable_automate_alt_image')) {
