@@ -26,6 +26,8 @@ use Magento\Framework\Exception\NoSuchEntityException;
 use Mageplaza\LazyLoading\Helper\Data as HelperData;
 use Mageplaza\LazyLoading\Helper\Image as HelperImage;
 use Magento\Framework\Filesystem\Io\File;
+use Mageplaza\LazyLoading\Model\Config\Source\System\LoadingType;
+use Mageplaza\LazyLoading\Model\Config\Source\System\PlaceholderType;
 
 /**
  * Class Filter
@@ -89,13 +91,13 @@ class Filter
         $holderType  = '';
         $loadingType = $this->helperData->getLoadingType();
 
-        if ($loadingType === 'icon') {
+        if ($loadingType === LoadingType::ICON) {
             $class       = 'mplazyload mplazyload-icon mplazyload-cms';
             $placeHolder = $this->helperData->getIcon();
         } else {
             $holderType = $this->helperData->getPlaceholderType();
             $class      = 'mplazyload mplazyload-' . $this->helperData->getPlaceholderType();
-            if ($holderType === 'transparent') {
+            if ($holderType === PlaceholderType::TRANSPARENT) {
                 $placeHolder = HelperData::DEFAULT_IMAGE;
             }
         }
@@ -106,7 +108,7 @@ class Filter
 
         foreach ($matches[0] as $img) {
             if ($img && !$this->helperData->isExcludeText($this->getImageText($img))) {
-                if ($holderType !== 'transparent' && $loadingType === 'placeholder') {
+                if ($holderType !== PlaceholderType::TRANSPARENT && $loadingType === LoadingType::PLACEHOLDER) {
                     $imgSrc  = $this->getImageSrc($img);
                     $imgPath = substr($imgSrc, strpos($imgSrc, 'pub'));
                     $imgInfo = $this->file->getPathInfo($imgPath);
@@ -270,7 +272,6 @@ class Filter
         ) {
             if (imagejpeg($newCanvas, $destImage, $imageQuality)) {
                 imagedestroy($newCanvas);
-
                 return true;
             }
         }

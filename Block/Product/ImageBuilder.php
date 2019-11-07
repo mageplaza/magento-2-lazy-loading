@@ -28,6 +28,8 @@ use Magento\Catalog\Model\Product;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Mageplaza\LazyLoading\Helper\Data as HelpData;
 use Magento\Catalog\Helper\Image as CoreHelpImage;
+use Mageplaza\LazyLoading\Model\Config\Source\System\LoadingType;
+use Mageplaza\LazyLoading\Model\Config\Source\System\PlaceholderType;
 
 /**
  * Class ImageBuilder
@@ -103,7 +105,7 @@ class ImageBuilder extends \Magento\Catalog\Block\Product\ImageBuilder
         $loadingType     = $this->helperData->getLoadingType();
         $placeholderType = $this->helperData->getPlaceholderType();
 
-        if ($loadingType === 'placeholder' && $placeholderType !== 'transparent') {
+        if ($loadingType === LoadingType::PLACEHOLDER && $placeholderType !== PlaceholderType::TRANSPARENT) {
             $width   = $imageFactory->getWidth() - 1;
             $height  = $imageFactory->getHeight() - 1;
             $attrs   = compact('width', 'height');

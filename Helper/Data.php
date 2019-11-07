@@ -28,6 +28,7 @@ use Magento\Store\Model\StoreManagerInterface;
 use Mageplaza\Core\Helper\AbstractData;
 use Mageplaza\LazyLoading\Helper\Image as HelperImage;
 use Magento\Framework\View\Asset\Repository;
+use Mageplaza\LazyLoading\Model\Config\Source\System\ApplyFor;
 
 /**
  * Class Data
@@ -175,25 +176,25 @@ class Data extends AbstractData
             return false;
         }
 
-        if ($this->checkApplyFor('category', 'catalog_category_view')) {
+        if ($this->checkApplyFor(ApplyFor::CATEGORY_PAGE, 'catalog_category_view')) {
             return true;
         }
 
         if (in_array($imageId, $this->relatedBlock, true)
-            && strpos($this->getApplyFor(), 'related') !== false
+            && strpos($this->getApplyFor(), ApplyFor::RELATED_BLOCK) !== false
         ) {
             return true;
         }
 
-        if ($this->checkApplyFor('product', 'catalog_product_view')) {
+        if ($this->checkApplyFor(ApplyFor::PRODUCT_PAGE, 'catalog_product_view')) {
             return true;
         }
 
-        if ($this->checkApplyFor('cms', 'cms')) {
+        if ($this->checkApplyFor(ApplyFor::CMS_PAGE, 'cms')) {
             return true;
         }
 
-        if ($this->checkApplyFor('search', 'catalogsearch_result_index')) {
+        if ($this->checkApplyFor(ApplyFor::SEARCH_PAGE, 'catalogsearch_result_index')) {
             return true;
         }
 
