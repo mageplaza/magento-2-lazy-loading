@@ -75,7 +75,7 @@ class Filter
 
     /**
      * @param CmsFilter $filter
-     * @param $result
+     * @param object $result
      *
      * @return mixed
      * @throws NoSuchEntityException
@@ -137,7 +137,7 @@ class Filter
     }
 
     /**
-     * @param $path
+     * @param string $path
      *
      * @return string
      */
@@ -154,7 +154,7 @@ class Filter
     }
 
     /**
-     * @param $img
+     * @param string $img
      *
      * @return array
      */
@@ -169,7 +169,7 @@ class Filter
     }
 
     /**
-     * @param $img
+     * @param string $img
      *
      * @return null
      */
@@ -197,7 +197,7 @@ class Filter
     }
 
     /**
-     * @param $img
+     * @param string $img
      *
      * @return mixed
      */
@@ -209,8 +209,8 @@ class Filter
     }
 
     /**
-     * @param $imgPath
-     * @param $imgInfo
+     * @param string $imgPath
+     * @param array $imgInfo
      */
     public function optimizeImage($imgPath, $imgInfo)
     {
@@ -227,9 +227,9 @@ class Filter
     }
 
     /**
-     * @param $srcImage
-     * @param $destImage
-     * @param $imageQuality
+     * @param string $srcImage
+     * @param string $destImage
+     * @param int $imageQuality
      *
      * @return bool
      */

@@ -21,6 +21,7 @@
 
 namespace Mageplaza\LazyLoading\Plugin\Block\Product;
 
+use Magento\Catalog\Block\Product\Image;
 use Magento\Catalog\Block\Product\ImageFactory as CoreImageFactory;
 use Mageplaza\LazyLoading\Helper\Data as HelperData;
 
@@ -49,7 +50,7 @@ class ImageFactory
 
     /**
      * @param CoreImageFactory $subject
-     * @param $result
+     * @param object $result
      *
      * @return mixed
      * @SuppressWarnings("Unused")

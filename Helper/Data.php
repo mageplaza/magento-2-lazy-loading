@@ -134,7 +134,7 @@ class Data extends AbstractData
     }
 
     /**
-     * @param $class
+     * @param array $class
      *
      * @return bool
      */
@@ -150,7 +150,7 @@ class Data extends AbstractData
     }
 
     /**
-     * @param $text
+     * @param string $text
      *
      * @return bool
      */
@@ -202,8 +202,8 @@ class Data extends AbstractData
     }
 
     /**
-     * @param $page
-     * @param $fullActionName
+     * @param string $page
+     * @param string $fullActionName
      *
      * @return bool
      */
