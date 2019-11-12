@@ -75,7 +75,7 @@ class Filter
 
     /**
      * @param CmsFilter $filter
-     * @param object $result
+     * @param string $result
      *
      * @return mixed
      * @throws NoSuchEntityException

@@ -50,7 +50,7 @@ class ImageFactory
 
     /**
      * @param CoreImageFactory $subject
-     * @param object $result
+     * @param Image $result
      *
      * @return mixed
      * @SuppressWarnings("Unused")
