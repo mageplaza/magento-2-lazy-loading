@@ -97,11 +97,11 @@ This feature keeps the constancy of the image appearance as well as saves the ba
 
 If you don’t want to use Lazy Loading anymore, you can exclude it in different ways:
  
-- Exclude page with URL: Lazy Loading will not affect images of the Page(s) with the exclude URL(s). For example: /gear.html
+- Exclude page with URL: Lazy Loading will not affect images of the Page(s) with the exclude URL(s). For example: `/gear.html`
 
-- Exclude CSS class: Lazy Loading will not be applied for Images with excluding CSS class. For example: <img class="downloadable-product" src="lifelong.jpg"
+- Exclude CSS class: Lazy Loading will not be applied for Images with excluding CSS class. For example: `<img class="downloadable-product" src="lifelong.jpg"` 
 
-- Exclude Text: The loading status of the images which have title or name with the exclude text will not be applied with Lazy Loading. For example: <img title = "lifelong" src = "download.jpg">
+- Exclude Text: The loading status of the images which have title or name with the exclude text will not be applied with Lazy Loading. For example: `<img title = "lifelong" src = "download.jpg">`
 
  ![](https://i.imgur.com/x6UyBcL.png)
 
