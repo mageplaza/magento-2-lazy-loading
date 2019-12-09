@@ -1,0 +1,57 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_LazyLoading
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+?>
+<script>
+    require([
+        'jquery'
+    ], function ($) {
+        $(document).ready(function () {
+            $('.mplazyload').lazy({
+                threshold: <?= /** @noEscape */ $block->getThreshold() ?>,
+                effect: "fadeIn",
+                effectTime: 1000,
+                afterLoad: function (e) {
+                    e.removeClass('mplazyload-blur');
+                    e.removeClass('mplazyload-icon');
+                    e.removeClass('mplazyload-cms');
+                }
+            });
+        });
+    });
+</script>
+
+<style>
+    img.mplazyload-icon {
+        width: <?= /** @noEscape */ $block->getResizeWith() . 'px' ?>;
+        height: <?= /** @noEscape */ $block->getResizeHeight() . 'px' ?>;
+    }
+
+    img.mplazyload-cms {
+        padding-left: 45%;
+    }
+
+    img.mplazyload-blur {
+        transition: 0.3s filter linear;
+        -o-transition: 0.3s -o-filter linear;
+        -webkit-filter: blur(5px);
+        filter: blur(5px);
+    }
+</style>

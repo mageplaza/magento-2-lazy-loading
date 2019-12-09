@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_LazyLoading
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="mplazyload" translate="label" type="text" sortOrder="350" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Lazy Loading</label>
+            <tab>mageplaza</tab>
+            <resource>Mageplaza_LazyLoading::configuration</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                <label>General</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Select <strong>Yes</strong> to enable the module]]></comment>
+                </field>
+                <field id="apply_for" translate="label" type="multiselect" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Apply For</label>
+                    <source_model>Mageplaza\LazyLoading\Model\Config\Source\System\ApplyFor</source_model>
+                </field>
+                <field id="exclude_page" translate="label comment" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Exclude Pages With URL Including</label>
+                    <frontend_model>Mageplaza\LazyLoading\Block\Adminhtml\Config\Field\ExcludePage</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    <comment><![CDATA[Page(s) with URL(s) containing the above path(s) will not selected to apply lazy loading<br>Example: /gear.html]]></comment>
+                </field>
+                <field id="exclude_css" translate="label comment" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Exclude CSS Class</label>
+                    <frontend_model>Mageplaza\LazyLoading\Block\Adminhtml\Config\Field\ExcludeCss</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    <comment><![CDATA[Images including css class above will not be applied with lazy loading<br>Example: &lt;img class="downloadable-product" src="lifelong.jpg"/&gt;. If "downloadable-product" is excluded, the image will not be applied with lazy loading.]]></comment>
+                </field>
+                <field id="exclude_text" translate="label comment" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Exclude Text</label>
+                    <frontend_model>Mageplaza\LazyLoading\Block\Adminhtml\Config\Field\ExcludeText</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    <comment><![CDATA[Image title or image name contains the text above will not be applied with lazy loading<br>Example: &lt;img title="lifelong-product" src="download.jpg"/&gt; or &lt;img alt="lifelong" src="lifelong.jpg"/&gt; . If "lifelong" is an excluded text, this image is not applied with lazy loading.]]></comment>
+                </field>
+                <field id="threshold" translate="label comment" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Loading Threshold</label>
+                    <comment><![CDATA[When no threshold is set, images will immediately load when they appear on screen. Defining a threshold (in pixels) will start pre-loading any images that appear outside the viewport<br>For example, if the threshold is 200px, the image load appears within 200px from the viewport.]]></comment>
+                    <validate>validate-number required-entry</validate>
+                </field>
+                <field id="loading_type" translate="label comment" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Loading Type</label>
+                    <source_model>Mageplaza\LazyLoading\Model\Config\Source\System\LoadingType</source_model>
+                </field>
+                <field id="icon" translate="label comment" type="image" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Upload Icon</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">mageplaza/lazyloading</upload_dir>
+                    <base_url type="media" scope_info="1">mageplaza/lazyloading</base_url>
+                    <comment><![CDATA[Upload loading icon. Support gif, jpg, svg, png. If no file is chosen, the default icon will be used. <br>Recommended: 64x64 px]]></comment>
+                    <depends>
+                        <field id="mplazyload/general/loading_type">icon</field>
+                    </depends>
+                </field>
+                <field id="resize_width" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Resize Icon Width</label>
+                    <validate>validate-greater-than-zero required-entry</validate>
+                    <depends>
+                        <field id="mplazyload/general/loading_type">icon</field>
+                    </depends>
+                </field>
+                <field id="resize_height" translate="label" type="text" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Resize Icon Height</label>
+                    <validate>validate-greater-than-zero required-entry</validate>
+                    <depends>
+                        <field id="mplazyload/general/loading_type">icon</field>
+                    </depends>
+                </field>
+                <field id="placeholder_type" translate="label" type="select" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Placeholder Type</label>
+                    <source_model>Mageplaza\LazyLoading\Model\Config\Source\System\PlaceholderType</source_model>
+                    <depends>
+                        <field id="mplazyload/general/loading_type">placeholder</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
