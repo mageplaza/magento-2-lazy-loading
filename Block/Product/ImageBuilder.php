@@ -23,11 +23,11 @@ namespace Mageplaza\LazyLoading\Block\Product;
 
 use Magento\Catalog\Block\Product\Image;
 use Magento\Catalog\Block\Product\ImageFactory;
+use Magento\Catalog\Helper\Image as CoreHelpImage;
 use Magento\Catalog\Helper\ImageFactory as HelperFactory;
 use Magento\Catalog\Model\Product;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Mageplaza\LazyLoading\Helper\Data as HelpData;
-use Magento\Catalog\Helper\Image as CoreHelpImage;
 use Mageplaza\LazyLoading\Model\Config\Source\System\LoadingType;
 use Mageplaza\LazyLoading\Model\Config\Source\System\PlaceholderType;
 

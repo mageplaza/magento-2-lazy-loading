@@ -40,16 +40,16 @@ class LazyLoad extends Template
     /**
      * LazyLoad constructor.
      *
-     * @param Context     $context
-     * @param HelperData  $helperData
-     * @param array       $data
+     * @param Context $context
+     * @param HelperData $helperData
+     * @param array $data
      */
     public function __construct(
         Context $context,
         HelperData $helperData,
         array $data = []
     ) {
-        $this->helperData  = $helperData;
+        $this->helperData = $helperData;
         parent::__construct($context, $data);
     }
 

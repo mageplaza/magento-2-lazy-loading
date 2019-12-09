@@ -23,9 +23,9 @@ namespace Mageplaza\LazyLoading\Plugin\Model\Template;
 
 use Magento\Cms\Model\Template\Filter as CmsFilter;
 use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\Filesystem\Io\File;
 use Mageplaza\LazyLoading\Helper\Data as HelperData;
 use Mageplaza\LazyLoading\Helper\Image as HelperImage;
-use Magento\Framework\Filesystem\Io\File;
 use Mageplaza\LazyLoading\Model\Config\Source\System\LoadingType;
 use Mageplaza\LazyLoading\Model\Config\Source\System\PlaceholderType;
 
@@ -272,6 +272,7 @@ class Filter
         ) {
             if (imagejpeg($newCanvas, $destImage, $imageQuality)) {
                 imagedestroy($newCanvas);
+
                 return true;
             }
         }

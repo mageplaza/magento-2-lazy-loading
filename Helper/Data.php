@@ -24,10 +24,10 @@ namespace Mageplaza\LazyLoading\Helper;
 use Magento\Framework\App\Helper\Context;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\ObjectManagerInterface;
+use Magento\Framework\View\Asset\Repository;
 use Magento\Store\Model\StoreManagerInterface;
 use Mageplaza\Core\Helper\AbstractData;
 use Mageplaza\LazyLoading\Helper\Image as HelperImage;
-use Magento\Framework\View\Asset\Repository;
 use Mageplaza\LazyLoading\Model\Config\Source\System\ApplyFor;
 
 /**
@@ -62,11 +62,11 @@ class Data extends AbstractData
     /**
      * Data constructor.
      *
-     * @param Context                $context
+     * @param Context $context
      * @param ObjectManagerInterface $objectManager
-     * @param StoreManagerInterface  $storeManager
-     * @param Image                  $helperImage
-     * @param Repository             $assetRepo
+     * @param StoreManagerInterface $storeManager
+     * @param Image $helperImage
+     * @param Repository $assetRepo
      */
     public function __construct(
         Context $context,
