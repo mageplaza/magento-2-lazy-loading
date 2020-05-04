@@ -21,19 +21,18 @@
 ?>
 <script>
     require([
-        'jquery'
-    ], function ($) {
-        $(document).ready(function () {
-            $('.mplazyload').lazy({
-                threshold: <?= /** @noEscape */ $block->getThreshold() ?>,
-                effect: "fadeIn",
-                effectTime: 1000,
-                afterLoad: function (e) {
-                    e.removeClass('mplazyload-blur');
-                    e.removeClass('mplazyload-icon');
-                    e.removeClass('mplazyload-cms');
-                }
-            });
+        'jquery',
+        'lazyLoadLib'
+    ], function ($, lazy) {
+        $('.mplazyload').lazy({
+            threshold: <?= /** @noEscape */ $block->getThreshold() ?>,
+            effect: "fadeIn",
+            effectTime: 1000,
+            afterLoad: function (e) {
+                e.removeClass('mplazyload-blur');
+                e.removeClass('mplazyload-icon');
+                e.removeClass('mplazyload-cms');
+            }
         });
     });
 </script>

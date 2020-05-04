@@ -20,14 +20,6 @@
  */
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-<!--    <head>-->
-<!--        <script type="text/javascript" src="Mageplaza_LazyLoading::js/lib/lazy.js"/>-->
-<!--    </head>-->
-    <head>
-        <!--        <script src="Mageplaza_LazyLoading::js/lib/jquery-3.4.1.min.js"/>-->
-        <script src="jquery.js"/>
-        <script src="Mageplaza_LazyLoading::js/lib/jquery.lazy.min.js"/>
-    </head>
     <body>
         <referenceContainer name="after.body.start">
             <block class="Mageplaza\LazyLoading\Block\LazyLoad" name="mplazyload-template" template="Mageplaza_LazyLoading::js.phtml" ifconfig="mplazyload/general/enabled" />
