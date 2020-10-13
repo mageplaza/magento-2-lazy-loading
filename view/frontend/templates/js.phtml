@@ -21,10 +21,12 @@
 ?>
 <script>
     require([
-        'jquery'
+        'jquery',
+        'mageplaza/lazyloading/lib/lazyload'
     ], function ($) {
+        "use strict";
         $(document).ready(function () {
-            $('.mplazyload').lazy({
+            setTimeout(function(){$('.mplazyload').lazy({
                 threshold: <?= /** @noEscape */ $block->getThreshold() ?>,
                 effect: "fadeIn",
                 effectTime: 1000,
@@ -33,7 +35,8 @@
                     e.removeClass('mplazyload-icon');
                     e.removeClass('mplazyload-cms');
                 }
-            });
+            });}, 2000);
+
         });
     });
 </script>
