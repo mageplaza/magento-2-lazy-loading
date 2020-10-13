@@ -235,7 +235,7 @@ class Filter
      */
     public function changeQuality($srcImage, $destImage, $imageQuality)
     {
-        list($width, $height, $type) = getimagesize($srcImage);
+        [$width, $height, $type] = getimagesize($srcImage);
         $newCanvas = imagecreatetruecolor($width, $height);
         switch (strtolower(image_type_to_mime_type($type))) {
             case 'image/jpeg':
