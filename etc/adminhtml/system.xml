@@ -58,7 +58,7 @@
                 <field id="threshold" translate="label comment" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Loading Threshold</label>
                     <comment><![CDATA[When no threshold is set, images will immediately load when they appear on screen. Defining a threshold (in pixels) will start pre-loading any images that appear outside the viewport<br>For example, if the threshold is 200px, the image load appears within 200px from the viewport.]]></comment>
-                    <validate>validate-number required-entry</validate>
+                    <validate>validate-digits required-entry</validate>
                 </field>
                 <field id="loading_type" translate="label comment" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Loading Type</label>
