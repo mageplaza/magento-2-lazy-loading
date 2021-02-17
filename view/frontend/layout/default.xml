@@ -21,7 +21,7 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-        <referenceContainer name="after.body.start">
+        <referenceContainer name="before.body.end">
             <block class="Mageplaza\LazyLoading\Block\LazyLoad" name="mplazyload-template" template="Mageplaza_LazyLoading::js.phtml" ifconfig="mplazyload/general/enabled" />
         </referenceContainer>
     </body>
