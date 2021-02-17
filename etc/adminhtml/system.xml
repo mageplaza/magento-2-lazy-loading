@@ -31,7 +31,9 @@
                 <field id="enabled" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Enable</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment><![CDATA[Select <strong>Yes</strong> to enable the module]]></comment>
+                    <comment><![CDATA[Select <b>Yes</b> to enable this module.<br />
+                        1. It helps to reduce abandonment cart with <a href="https://www.mageplaza.com/magento-2-one-step-checkout-extension/" target="_blank">One Step Checkout</a>. <br />
+                        2. <a href="https://pages.mageplaza.com/abandoned-cart-email-templates-for-magento/?utm_source=configuration&utm_campaign=m2-bannerslider" target="_blank">How to setup abandoned cart email series</a>]]></comment>
                 </field>
                 <field id="apply_for" translate="label" type="multiselect" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Apply For</label>
@@ -58,7 +60,7 @@
                 <field id="threshold" translate="label comment" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Loading Threshold</label>
                     <comment><![CDATA[When no threshold is set, images will immediately load when they appear on screen. Defining a threshold (in pixels) will start pre-loading any images that appear outside the viewport<br>For example, if the threshold is 200px, the image load appears within 200px from the viewport.]]></comment>
-                    <validate>validate-digits required-entry</validate>
+                    <validate>validate-number required-entry</validate>
                 </field>
                 <field id="loading_type" translate="label comment" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Loading Type</label>
