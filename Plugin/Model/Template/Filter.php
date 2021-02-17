@@ -117,6 +117,11 @@ class Filter
                         . '/mageplaza/lazyloading/'
                         . $imgInfo['basename'];
                 }
+                
+                // dont replace twice, in static block widget if they already have been processed and have data-src
+                if (strpos($img, 'data-src="') !== false) {
+                    continue;
+                }
 
                 if (strpos($img, 'class="') !== false) {
                     $newClass = str_replace('class="', 'class="' . $class . ' ', $img);
