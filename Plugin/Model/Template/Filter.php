@@ -24,6 +24,10 @@ namespace Mageplaza\LazyLoading\Plugin\Model\Template;
 use Magento\Cms\Model\Template\Filter as CmsFilter;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Filesystem\Io\File;
+use Magento\Framework\Filesystem;
+use Magento\Framework\Filesystem\Directory\WriteInterface;
+use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\Filesystem\DriverInterface;
 use Mageplaza\LazyLoading\Helper\Data as HelperData;
 use Mageplaza\LazyLoading\Helper\Image as HelperImage;
 use Mageplaza\LazyLoading\Model\Config\Source\System\LoadingType;
@@ -52,25 +56,41 @@ class Filter
     protected $file;
 
     /**
+     * @var WriteInterface
+     */
+    protected $mediaDirectory;
+
+    /**
+     * @var DriverInterface
+     */
+    protected $driver;
+
+    /**
      * @var string
      */
-    protected $moveImgTo = 'pub/media/mageplaza/lazyloading/';
+    protected $moveImgTo = 'mageplaza/lazyloading/';
 
     /**
      * Filter constructor.
-     *
      * @param HelperData $helperData
      * @param HelperImage $helperImage
      * @param File $file
+     * @param Filesystem $filesystem
+     * @param DriverInterface $driver
+     * @throws \Magento\Framework\Exception\FileSystemException
      */
     public function __construct(
         HelperData $helperData,
         HelperImage $helperImage,
-        File $file
+        File $file,
+        Filesystem $filesystem,
+        DriverInterface $driver
     ) {
         $this->helperData  = $helperData;
         $this->helperImage = $helperImage;
         $this->file        = $file;
+        $this->driver      = $driver;
+        $this->mediaDirectory = $filesystem->getDirectoryWrite(DirectoryList::MEDIA);
     }
 
     /**
@@ -220,14 +240,15 @@ class Filter
     public function optimizeImage($imgPath, $imgInfo)
     {
         $quality = 10;
+        $imgPath = str_replace('pub/media', "", $imgPath);
 
-        if ($dir = opendir($this->filterSrc($imgInfo['dirname']))) {
-            $checkValidImage = getimagesize($imgPath);
+        if ($this->mediaDirectory->isFile($imgPath)) {
+            $absolutePath = $this->mediaDirectory->getAbsolutePath().$imgPath;
+            $checkValidImage = getimagesize($absolutePath);
 
             if ($checkValidImage) {
-                $this->changeQuality($imgPath, $this->moveImgTo . $imgInfo['basename'], $quality);
+                $this->changeQuality($absolutePath, $this->mediaDirectory->getAbsolutePath().$this->moveImgTo . $imgInfo['basename'], $quality);
             }
-            closedir($dir);
         }
     }
 
@@ -240,6 +261,9 @@ class Filter
      */
     public function changeQuality($srcImage, $destImage, $imageQuality)
     {
+        if (!$this->mediaDirectory->isFile($destImage)) {
+            return false;
+        }
         [$width, $height, $type] = getimagesize($srcImage);
         $newCanvas = imagecreatetruecolor($width, $height);
         switch (strtolower(image_type_to_mime_type($type))) {
