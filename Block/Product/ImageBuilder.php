@@ -94,7 +94,8 @@ class ImageBuilder extends \Magento\Catalog\Block\Product\ImageBuilder
         $attributes = $attributes ?: $this->attributes;
 
         if (!$this->helperData->isEnabled()
-            || $this->helperData->isLazyLoad($imageId) === false) {
+            || $this->helperData->isLazyLoad($imageId) === false
+            || !$this->helperData->isLazyLoad()) {
             return parent::create($product, $imageId, $attributes);
         }
 
