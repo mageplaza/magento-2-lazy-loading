@@ -19,7 +19,14 @@
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 ?>
-<?php /** @var $block \Magento\Catalog\Block\Product\Image */ ?>
+<?php
+/** @var $block \Magento\Catalog\Block\Product\Image */
+/** @var $escaper \Magento\Framework\Escaper */
+/** @var $escaper \Magento\Framework\Escaper */
+/** @var $_helper \Mageplaza\LazyLoading\Helper\Data */
+$_helper = $this->helper('Mageplaza\LazyLoading\Helper\Data');
+?>
+
 <?php if ($block->getIsExclude()): ?>
     <span class="product-image-container"
           style="width:<?= /** @noEscape */ $block->getWidth() ?>px;">
@@ -33,14 +40,17 @@
         </span>
     </span>
 <?php else: ?>
-    <?php if ($block->getLoadingType() === 'icon'): ?>
+    <?php if ($_helper->getLoadingType() === 'icon'): ?>
         <span class="product-image-container"
               style="width:<?= /** @noEscape */ $block->getWidth() ?>px;">
             <span class="product-image-wrapper"
                   style="padding-bottom: <?= /* @escapeNotVerified */ ($block->getRatio() * 100) ?>%;">
                 <img class="product-image-photo mplazyload mplazyload-icon"
-                    <?= /** @noEscape */ $block->getCustomAttributes() ?>
-                     src="<?= /** @noEscape */ $block->getIcon() ?>"
+                     <?php foreach ($block->getCustomAttributes() as $name => $value): ?>
+                         <?= $escaper->escapeHtmlAttr($name) ?>="<?= $escaper->escapeHtmlAttr($value) ?>"
+                     <?php endforeach; ?>
+                     src="<?= /** @noEscape */ $_helper->getIcon() ?>"
+                     data-src="<?= /** @noEscape */ $block->getImageUrl() ?>"
                      width="<?= /** @noEscape */ $block->getWidth() ?>"
                      height="<?= /** @noEscape */ $block->getHeight() ?>"
                      alt="<?= /** @noEscape */ $block->stripTags($block->getLabel(), null, true) ?>"/>
@@ -51,9 +61,12 @@
               style="width:<?= /** @noEscape */ $block->getWidth() ?>px;">
             <span class="product-image-wrapper"
                   style="padding-bottom: <?= /* @escapeNotVerified */ ($block->getRatio() * 100) ?>%;">
-                <img class="product-image-photo mplazyload mplazyload-<?= /** @noEscape */ $block->getPlaceholderType() ?>"
-                    <?= /** @noEscape */ $block->getCustomAttributes() ?>
-                     src="<?= /** @noEscape */ $block->getImageUrl() ?>"
+                <img class="product-image-photo mplazyload mplazyload-<?= /** @noEscape */ $_helper->getPlaceholderType() ?>"
+                     <?php foreach ($block->getCustomAttributes() as $name => $value): ?>
+                         <?= $escaper->escapeHtmlAttr($name) ?>="<?= $escaper->escapeHtmlAttr($value) ?>"
+                     <?php endforeach; ?>
+                     src="<?= /** @noEscape */ $block->getLazyImage() ?>"
+                     data-src="<?= /** @noEscape */ $block->getImageUrl() ?>"
                      width="<?= /** @noEscape */ $block->getWidth() ?>"
                      height="<?= /** @noEscape */ $block->getHeight() ?>"
                      alt="<?= /** @noEscape */ $block->stripTags($block->getLabel(), null, true) ?>"/>

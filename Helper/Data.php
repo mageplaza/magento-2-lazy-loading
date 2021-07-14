@@ -26,6 +26,11 @@ use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Framework\View\Asset\Repository;
 use Magento\Store\Model\StoreManagerInterface;
+use Magento\Framework\Filesystem\Io\File;
+use Magento\Framework\Filesystem;
+use Magento\Framework\Filesystem\Directory\WriteInterface;
+use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\Exception\FileSystemException;
 use Mageplaza\Core\Helper\AbstractData;
 use Mageplaza\LazyLoading\Helper\Image as HelperImage;
 use Mageplaza\LazyLoading\Model\Config\Source\System\ApplyFor;
@@ -60,24 +65,163 @@ class Data extends AbstractData
     ];
 
     /**
+     * @var File
+     */
+    protected $file;
+
+    /**
+     * @var DirectoryList
+     */
+    protected $directoryList;
+
+    /**
+     * @var WriteInterface
+     */
+    protected $mediaDirectory;
+
+    /**
+     * @var string
+     */
+    protected $moveImgTo = 'mageplaza/lazyloading/';
+
+    /**
      * Data constructor.
-     *
      * @param Context $context
      * @param ObjectManagerInterface $objectManager
      * @param StoreManagerInterface $storeManager
      * @param Image $helperImage
      * @param Repository $assetRepo
+     * @param File $file
+     * @param Filesystem $filesystem
+     * @param DirectoryList $directoryList
+     * @throws FileSystemException
      */
     public function __construct(
         Context $context,
         ObjectManagerInterface $objectManager,
         StoreManagerInterface $storeManager,
         HelperImage $helperImage,
-        Repository $assetRepo
+        Repository $assetRepo,
+        File $file,
+        Filesystem $filesystem,
+        DirectoryList $directoryList
     ) {
-        $this->helperImage = $helperImage;
-        $this->assetRepo   = $assetRepo;
+        $this->helperImage    = $helperImage;
+        $this->assetRepo      = $assetRepo;
+        $this->file           = $file;
+        $this->directoryList  = $directoryList;
+        $this->mediaDirectory = $filesystem->getDirectoryWrite(DirectoryList::MEDIA);
         parent::__construct($context, $objectManager, $storeManager);
+    }
+
+    /**
+     * @param string $path
+     *
+     * @return string
+     */
+    public function filterSrc($path)
+    {
+        if (strpos($path, '/version') !== false) {
+            $leftStr  = substr($path, 0, strpos($path, '/version'));
+            $rightStr = substr($path, strpos($path, '/frontend'));
+
+            return $leftStr . $rightStr;
+        }
+
+        return $path;
+    }
+
+    /**
+     * @param $imgPath
+     * @param $imgInfo
+     * @return $this
+     * @throws FileSystemException
+     */
+    public function optimizeImage($imgPath, $imgInfo)
+    {
+        $rootImage = $this->directoryList->getRoot().'/'.$imgPath;
+
+        if ($this->file->fileExists($imgPath)) {
+            $rootImage = $imgPath;
+        }
+
+        $moveTo    = $this->mediaDirectory->getAbsolutePath() . $this->moveImgTo . $imgInfo['basename'];
+
+        if ($this->file->fileExists($moveTo)) {
+            return $this;
+        }
+
+        if ($this->file->fileExists($rootImage)) {
+            $this->mediaDirectory->copyFile(
+                $rootImage,
+                $moveTo
+            );
+            $quality = 9;
+            $checkValidImage = getimagesize($rootImage);
+            if ($checkValidImage) {
+                $this->changeQuality(
+                    $rootImage,
+                    $moveTo,
+                    $quality
+                );
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * @param string $srcImage
+     * @param string $destImage
+     * @param int $imageQuality
+     *
+     * @return bool
+     */
+    public function changeQuality($srcImage, $destImage, $imageQuality)
+    {
+        [$width, $height, $type] = getimagesize($srcImage);
+        $newCanvas = imagecreatetruecolor($width, $height);
+
+        switch (strtolower(image_type_to_mime_type($type))) {
+            case 'image/jpeg':
+                $newImage = imagecreatefromjpeg($srcImage);
+                break;
+            case 'image/JPEG':
+                $newImage = imagecreatefromjpeg($srcImage);
+                break;
+            case 'image/png':
+                $newImage = imagecreatefrompng($srcImage);
+                break;
+            case 'image/PNG':
+                $newImage = imagecreatefrompng($srcImage);
+                break;
+            case 'image/gif':
+                $newImage = imagecreatefromgif($srcImage);
+                break;
+            default:
+                return false;
+        }
+
+        if (imagecopyresampled(
+            $newCanvas,
+            $newImage,
+            0,
+            0,
+            0,
+            0,
+            $width,
+            $height,
+            $width,
+            $height
+        )
+        ) {
+            if (imagejpeg($newCanvas, $destImage, $imageQuality)) {
+                imagedestroy($newCanvas);
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

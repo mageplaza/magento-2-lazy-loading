@@ -24,10 +24,6 @@ namespace Mageplaza\LazyLoading\Plugin\Model\Template;
 use Magento\Cms\Model\Template\Filter as CmsFilter;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Filesystem\Io\File;
-use Magento\Framework\Filesystem;
-use Magento\Framework\Filesystem\Directory\WriteInterface;
-use Magento\Framework\App\Filesystem\DirectoryList;
-use Magento\Framework\Filesystem\DriverInterface;
 use Mageplaza\LazyLoading\Helper\Data as HelperData;
 use Mageplaza\LazyLoading\Helper\Image as HelperImage;
 use Mageplaza\LazyLoading\Model\Config\Source\System\LoadingType;
@@ -56,41 +52,19 @@ class Filter
     protected $file;
 
     /**
-     * @var WriteInterface
-     */
-    protected $mediaDirectory;
-
-    /**
-     * @var DriverInterface
-     */
-    protected $driver;
-
-    /**
-     * @var string
-     */
-    protected $moveImgTo = 'mageplaza/lazyloading/';
-
-    /**
      * Filter constructor.
      * @param HelperData $helperData
      * @param HelperImage $helperImage
      * @param File $file
-     * @param Filesystem $filesystem
-     * @param DriverInterface $driver
-     * @throws \Magento\Framework\Exception\FileSystemException
      */
     public function __construct(
         HelperData $helperData,
         HelperImage $helperImage,
-        File $file,
-        Filesystem $filesystem,
-        DriverInterface $driver
+        File $file
     ) {
-        $this->helperData  = $helperData;
-        $this->helperImage = $helperImage;
-        $this->file        = $file;
-        $this->driver      = $driver;
-        $this->mediaDirectory = $filesystem->getDirectoryWrite(DirectoryList::MEDIA);
+        $this->helperData     = $helperData;
+        $this->helperImage    = $helperImage;
+        $this->file           = $file;
     }
 
     /**
@@ -132,7 +106,7 @@ class Filter
                     $imgSrc  = $this->getImageSrc($img);
                     $imgPath = substr($imgSrc, strpos($imgSrc, 'pub'));
                     $imgInfo = $this->file->getPathInfo($imgPath);
-                    $this->optimizeImage($this->filterSrc($imgPath), $imgInfo);
+                    $this->helperData->optimizeImage($this->helperData->filterSrc($imgPath), $imgInfo);
                     $placeHolder = $this->helperImage->getBaseMediaUrl()
                         . '/mageplaza/lazyloading/'
                         . $imgInfo['basename'];
@@ -159,23 +133,6 @@ class Filter
         }
 
         return str_replace($search, $replaced, $result);
-    }
-
-    /**
-     * @param string $path
-     *
-     * @return string
-     */
-    public function filterSrc($path)
-    {
-        if (strpos($path, '/version') !== false) {
-            $leftStr  = substr($path, 0, strpos($path, '/version'));
-            $rightStr = substr($path, strpos($path, '/frontend'));
-
-            return $leftStr . $rightStr;
-        }
-
-        return $path;
     }
 
     /**
@@ -231,81 +188,5 @@ class Filter
         preg_match('/src\s*=\s*"(.+?)"/', $img, $matches);
 
         return $matches[1];
-    }
-
-    /**
-     * @param string $imgPath
-     * @param array $imgInfo
-     */
-    public function optimizeImage($imgPath, $imgInfo)
-    {
-        $quality = 10;
-        $imgPath = str_replace('pub/media', "", $imgPath);
-
-        if ($this->mediaDirectory->isFile($imgPath)) {
-            $absolutePath = $this->mediaDirectory->getAbsolutePath().$imgPath;
-            $checkValidImage = getimagesize($absolutePath);
-
-            if ($checkValidImage) {
-                $this->changeQuality($absolutePath, $this->mediaDirectory->getAbsolutePath().$this->moveImgTo . $imgInfo['basename'], $quality);
-            }
-        }
-    }
-
-    /**
-     * @param string $srcImage
-     * @param string $destImage
-     * @param int $imageQuality
-     *
-     * @return bool
-     */
-    public function changeQuality($srcImage, $destImage, $imageQuality)
-    {
-        if (!$this->mediaDirectory->isFile($destImage)) {
-            return false;
-        }
-        [$width, $height, $type] = getimagesize($srcImage);
-        $newCanvas = imagecreatetruecolor($width, $height);
-        switch (strtolower(image_type_to_mime_type($type))) {
-            case 'image/jpeg':
-                $newImage = imagecreatefromjpeg($srcImage);
-                break;
-            case 'image/JPEG':
-                $newImage = imagecreatefromjpeg($srcImage);
-                break;
-            case 'image/png':
-                $newImage = imagecreatefrompng($srcImage);
-                break;
-            case 'image/PNG':
-                $newImage = imagecreatefrompng($srcImage);
-                break;
-            case 'image/gif':
-                $newImage = imagecreatefromgif($srcImage);
-                break;
-            default:
-                return false;
-        }
-
-        if (imagecopyresampled(
-            $newCanvas,
-            $newImage,
-            0,
-            0,
-            0,
-            0,
-            $width,
-            $height,
-            $width,
-            $height
-        )
-        ) {
-            if (imagejpeg($newCanvas, $destImage, $imageQuality)) {
-                imagedestroy($newCanvas);
-
-                return true;
-            }
-        }
-
-        return false;
     }
 }
