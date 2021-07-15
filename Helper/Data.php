@@ -152,8 +152,11 @@ class Data extends AbstractData
         }
 
         if ($this->file->fileExists($rootImage)) {
+            $image = str_replace($this->mediaDirectory->getAbsolutePath(), '', $rootImage);
+            $image = str_replace('pub/media/', '', $image);
+
             $this->mediaDirectory->copyFile(
-                $rootImage,
+                $image,
                 $moveTo
             );
             $quality = 9;
