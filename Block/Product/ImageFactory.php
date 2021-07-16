@@ -247,7 +247,7 @@ class ImageFactory extends \Magento\Catalog\Block\Product\ImageFactory
             ],
         ];
 
-        if (!$this->helper->isEnabled()) {
+        if (!$this->helper->isEnabled() || !$this->helper->isLazyLoad()) {
             return $this->objectManager->create(ImageBlock::class, $data);
         }
 
