@@ -35,6 +35,7 @@ use Magento\Framework\Filesystem;
 use Magento\Catalog\Helper\ImageFactory as HelperFactory;
 use Mageplaza\LazyLoading\Helper\Data;
 use Mageplaza\LazyLoading\Helper\Image;
+use Mageplaza\LazyLoading\Model\Config\Source\System\PlaceholderType;
 
 /**
  * Class ImageFactory
@@ -257,6 +258,11 @@ class ImageFactory extends \Magento\Catalog\Block\Product\ImageFactory
         $this->helper->optimizeImage($this->helper->filterSrc($imgPath), $imgInfo);
 
         $lazyImage = $this->helperImage->getBaseMediaUrl() . '/mageplaza/lazyloading/' . $imgInfo['basename'];
+
+        if ($this->helper->getPlaceholderType() === PlaceholderType::TRANSPARENT) {
+            $lazyImage = Data::DEFAULT_IMAGE;
+        }
+
         $data['data']['lazy_image'] = $lazyImage;
         $data['data']['template'] = 'Mageplaza_LazyLoading::product/image_with_borders.phtml';
 
