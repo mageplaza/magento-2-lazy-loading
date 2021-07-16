@@ -71,7 +71,7 @@
                     <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
                     <upload_dir config="system/filesystem/media" scope_info="1">mageplaza/lazyloading</upload_dir>
                     <base_url type="media" scope_info="1">mageplaza/lazyloading</base_url>
-                    <comment><![CDATA[Upload loading icon. Support gif, jpg, svg, png. If no file is chosen, the default icon will be used. <br>Recommended: 64x64 px]]></comment>
+                    <comment><![CDATA[Upload loading icon. Support gif, jpg, jpeg, png. If no file is chosen, the default icon will be used. <br>Recommended: 64x64 px]]></comment>
                     <depends>
                         <field id="mplazyload/general/loading_type">icon</field>
                     </depends>
