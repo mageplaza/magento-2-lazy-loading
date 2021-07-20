@@ -74,3 +74,23 @@ $_helper = $this->helper('Mageplaza\LazyLoading\Helper\Data');
         </span>
     <?php endif; ?>
 <?php endif; ?>
+
+<?php
+    if ($block->getRequest()->isAjax()) {
+        $threshold = $_helper->getThreshold() ?: 2000;
+        echo '<script type="text/javascript">
+        jQuery(document).ready(function () {
+            setTimeout(function(){jQuery(".mplazyload").lazy({
+            threshold: '.$threshold.',
+            effect: "fadeIn",
+            effectTime: 1000,
+            afterLoad: function (e) {
+                    e.removeClass("mplazyload-blu");
+                    e.removeClass("mplazyload-icon");
+                    e.removeClass("mplazyload-cms");
+                }
+        })}, 2000);
+        });
+        </script>';
+    }
+?>

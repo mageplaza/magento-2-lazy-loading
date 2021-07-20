@@ -405,4 +405,12 @@ class Data extends AbstractData
     {
         return $this->getConfigGeneral('placeholder_type');
     }
+
+    /**
+     * @return mixed
+     */
+    public function getThreshold()
+    {
+        return $this->getConfigGeneral('threshold');
+    }
 }
