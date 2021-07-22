@@ -1129,12 +1129,16 @@ define([
 
             if (mediaCacheKey in $widget.options.mediaCache) {
                 $widget._XhrKiller();
-                // $widget._EnableProductMediaLoader($this);
+                if (!$($widget.productForm.context).find('img[class*=mplazyload-]').length) {
+                    $widget._EnableProductMediaLoader($this);
+                }
                 mediaSuccessCallback($widget.options.mediaCache[mediaCacheKey]);
             } else {
                 mediaCallData.isAjax = true;
                 $widget._XhrKiller();
-                // $widget._EnableProductMediaLoader($this);
+                if (!$($widget.productForm.context).find('img[class*=mplazyload-]').length) {
+                    $widget._EnableProductMediaLoader($this);
+                }
                 $widget.xhr = $.ajax({
                     url: $widget.options.mediaCallback,
                     cache: true,
