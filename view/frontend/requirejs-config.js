@@ -24,5 +24,10 @@ var config = {
     },
     shim: {
         "mageplaza/lazyloading/lib/lazyload": ["jquery"]
+    },
+    map: {
+        '*': {
+            'Magento_Swatches/js/swatch-renderer': 'Mageplaza_LazyLoading/js/swatch-renderer-map'
+        }
     }
 };

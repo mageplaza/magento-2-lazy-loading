@@ -21,10 +21,7 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <preference for="Magento\Catalog\Block\Product\ImageBuilder" type="Mageplaza\LazyLoading\Block\Product\ImageBuilder" />
-    <type name="Magento\Catalog\Block\Product\ImageFactory">
-        <plugin name="mplazyload_product_list" type="Mageplaza\LazyLoading\Plugin\Block\Product\ImageFactory" sortOrder="1"/>
-    </type>
+    <preference for="Magento\Catalog\Block\Product\ImageFactory" type="Mageplaza\LazyLoading\Block\Product\ImageFactory" />
     <type name="Magento\Cms\Model\Template\Filter">
         <plugin name="mplazyload_cms_image" type="Mageplaza\LazyLoading\Plugin\Model\Template\Filter" />
     </type>

@@ -52,13 +52,7 @@ class Filter
     protected $file;
 
     /**
-     * @var string
-     */
-    protected $moveImgTo = 'pub/media/mageplaza/lazyloading/';
-
-    /**
      * Filter constructor.
-     *
      * @param HelperData $helperData
      * @param HelperImage $helperImage
      * @param File $file
@@ -68,9 +62,9 @@ class Filter
         HelperImage $helperImage,
         File $file
     ) {
-        $this->helperData  = $helperData;
-        $this->helperImage = $helperImage;
-        $this->file        = $file;
+        $this->helperData     = $helperData;
+        $this->helperImage    = $helperImage;
+        $this->file           = $file;
     }
 
     /**
@@ -112,7 +106,7 @@ class Filter
                     $imgSrc  = $this->getImageSrc($img);
                     $imgPath = substr($imgSrc, strpos($imgSrc, 'pub'));
                     $imgInfo = $this->file->getPathInfo($imgPath);
-                    $this->optimizeImage($this->filterSrc($imgPath), $imgInfo);
+                    $this->helperData->optimizeImage($this->helperData->filterSrc($imgPath), $imgInfo);
                     $placeHolder = $this->helperImage->getBaseMediaUrl()
                         . '/mageplaza/lazyloading/'
                         . $imgInfo['basename'];
@@ -139,23 +133,6 @@ class Filter
         }
 
         return str_replace($search, $replaced, $result);
-    }
-
-    /**
-     * @param string $path
-     *
-     * @return string
-     */
-    public function filterSrc($path)
-    {
-        if (strpos($path, '/version') !== false) {
-            $leftStr  = substr($path, 0, strpos($path, '/version'));
-            $rightStr = substr($path, strpos($path, '/frontend'));
-
-            return $leftStr . $rightStr;
-        }
-
-        return $path;
     }
 
     /**
@@ -211,77 +188,5 @@ class Filter
         preg_match('/src\s*=\s*"(.+?)"/', $img, $matches);
 
         return $matches[1];
-    }
-
-    /**
-     * @param string $imgPath
-     * @param array $imgInfo
-     */
-    public function optimizeImage($imgPath, $imgInfo)
-    {
-        $quality = 10;
-
-        if ($dir = opendir($this->filterSrc($imgInfo['dirname']))) {
-            $checkValidImage = getimagesize($imgPath);
-
-            if ($checkValidImage) {
-                $this->changeQuality($imgPath, $this->moveImgTo . $imgInfo['basename'], $quality);
-            }
-            closedir($dir);
-        }
-    }
-
-    /**
-     * @param string $srcImage
-     * @param string $destImage
-     * @param int $imageQuality
-     *
-     * @return bool
-     */
-    public function changeQuality($srcImage, $destImage, $imageQuality)
-    {
-        [$width, $height, $type] = getimagesize($srcImage);
-        $newCanvas = imagecreatetruecolor($width, $height);
-        switch (strtolower(image_type_to_mime_type($type))) {
-            case 'image/jpeg':
-                $newImage = imagecreatefromjpeg($srcImage);
-                break;
-            case 'image/JPEG':
-                $newImage = imagecreatefromjpeg($srcImage);
-                break;
-            case 'image/png':
-                $newImage = imagecreatefrompng($srcImage);
-                break;
-            case 'image/PNG':
-                $newImage = imagecreatefrompng($srcImage);
-                break;
-            case 'image/gif':
-                $newImage = imagecreatefromgif($srcImage);
-                break;
-            default:
-                return false;
-        }
-
-        if (imagecopyresampled(
-            $newCanvas,
-            $newImage,
-            0,
-            0,
-            0,
-            0,
-            $width,
-            $height,
-            $width,
-            $height
-        )
-        ) {
-            if (imagejpeg($newCanvas, $destImage, $imageQuality)) {
-                imagedestroy($newCanvas);
-
-                return true;
-            }
-        }
-
-        return false;
     }
 }

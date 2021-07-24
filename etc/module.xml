@@ -24,6 +24,7 @@
     <module name="Mageplaza_LazyLoading" setup_version="1.0.0">
         <sequence>
             <module name="Mageplaza_Core"/>
+            <module name="Magento_Swatches"/>
         </sequence>
     </module>
 </config>
