@@ -1,6 +1,6 @@
 # Magento 2 Lazy Loading extension
 
-Lazy Loading module allows speeding up the site load by showing the image only at the demanding time. Lazy Loading improves site performance and reduces bounce rate due to slow loading.
+[Magento 2 Lazy Loading module](https://www.mageplaza.com/magento-2-lazy-loading/) allows speeding up the site load by showing the image only at the demanding time. Lazy Loading improves site performance and reduces bounce rate due to slow loading.
 
 ## 1. Documentation
 
@@ -29,15 +29,25 @@ A: Loading transaction has two main types: loading icon and lightweight placehol
 
 A: Threshold is used to make the images load easier. You can use the threshold parameter (px). For example, if the threshold is 200px, the image load appears within 200px far from the viewport.
 
-## 3. How to install Lazy Loading extension for Magento 2
+## 3. How to install Magento 2 Lazy Loading extension
 
 Install via composer (recommend). Run the following command in Magento 2 root folder:
+
+With Marketing Automation (recommend):
+```
+composer require mageplaza/module-lazy-loading mageplaza/module-smtp
+php bin/magento setup:upgrade
+php bin/magento setup:static-content:deploy
+```
+
+Without Marketing Automation:
 
 ```
 composer require mageplaza/module-lazy-loading
 php bin/magento setup:upgrade
 php bin/magento setup:static-content:deploy
 ```
+
 
 ## 4. Highlight Features
  
@@ -197,3 +207,30 @@ Login to the Magento Admin, go to `Stores > Settings > Configuration > Mageplaza
 
 
 
+
+## Mageplaza extensions on Magento Marketplace, Github
+
+
+☞ [M2 One Step Checkout](https://marketplace.magento.com/mageplaza-magento-2-one-step-checkout-extension.html)
+
+☞ [M2 SEO extension](https://marketplace.magento.com/mageplaza-magento-2-seo-extension.html)
+
+☞ [M2 Reward Points](https://marketplace.magento.com/mageplaza-module-reward-points.html)
+
+☞ [M2 Blog extension](https://marketplace.magento.com/mageplaza-magento-2-blog-extension.html)
+
+☞ [M2 Layered Navigation](https://marketplace.magento.com/mageplaza-layered-navigation-m2.html)
+
+☞ [M2 Google Tag Manager](https://www.mageplaza.com/magento-2-google-tag-manager/)
+
+☞ [M2 custom order number](https://marketplace.magento.com/mageplaza-module-custom-order-number.html)
+
+☞ [Magento 2 SEO on Github](https://github.com/mageplaza/magento-2-seo)
+
+☞ [M2 Image Optimizer](https://marketplace.magento.com/mageplaza-module-image-optimizer.html)
+
+☞ [M2 auto related products](https://marketplace.magento.com/mageplaza-module-automatic-related-products.html)
+
+☞ [Magento 2 Login as Customer on Github](https://github.com/mageplaza/magento-2-login-as-customer)
+
+☞ [M2 GDPR extension](https://marketplace.magento.com/mageplaza-module-gdpr.html)
