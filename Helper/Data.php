@@ -86,6 +86,7 @@ class Data extends AbstractData
 
     /**
      * Data constructor.
+     *
      * @param Context $context
      * @param ObjectManagerInterface $objectManager
      * @param StoreManagerInterface $storeManager
@@ -94,6 +95,7 @@ class Data extends AbstractData
      * @param File $file
      * @param Filesystem $filesystem
      * @param DirectoryList $directoryList
+     *
      * @throws FileSystemException
      */
     public function __construct(
@@ -134,18 +136,22 @@ class Data extends AbstractData
     /**
      * @param $imgPath
      * @param $imgInfo
+     *
      * @return $this
      * @throws FileSystemException
      */
     public function optimizeImage($imgPath, $imgInfo)
     {
-        $rootImage = $this->directoryList->getRoot().'/'.$imgPath;
+        $rootImage = $this->directoryList->getRoot() . '/' . $imgPath;
 
+        if (strpos($rootImage, 'pub/static')) {
+            return $this;
+        }
         if ($this->file->fileExists($imgPath)) {
             $rootImage = $imgPath;
         }
 
-        $moveTo    = $this->mediaDirectory->getAbsolutePath() . $this->moveImgTo . $imgInfo['basename'];
+        $moveTo = $this->mediaDirectory->getAbsolutePath() . $this->moveImgTo . $imgInfo['basename'];
 
         if ($this->file->fileExists($moveTo)) {
             return $this;
@@ -159,7 +165,7 @@ class Data extends AbstractData
                 $image,
                 $moveTo
             );
-            $quality = 9;
+            $quality         = 9;
             $checkValidImage = getimagesize($rootImage);
             if ($checkValidImage) {
                 $this->changeQuality(
@@ -169,6 +175,7 @@ class Data extends AbstractData
                 );
             }
         }
+
         return $this;
     }
 
@@ -334,6 +341,14 @@ class Data extends AbstractData
         }
 
         if ($this->checkApplyFor(ApplyFor::PRODUCT_PAGE, 'catalog_product_view')) {
+            if (in_array($imageId, $this->relatedBlock, true)) {
+                if (strpos($this->getApplyFor(), ApplyFor::RELATED_BLOCK) === false) {
+                    return false;
+                }
+
+                return true;
+            }
+
             return true;
         }
 
