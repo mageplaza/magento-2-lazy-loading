@@ -144,7 +144,7 @@ class Data extends AbstractData
     {
         $rootImage = $this->directoryList->getRoot() . '/' . $imgPath;
 
-        if (strpos($rootImage, 'pub/static')) {
+        if (str_contains($rootImage, 'pub/static')) {
             return $this;
         }
         if ($this->file->fileExists($imgPath)) {
