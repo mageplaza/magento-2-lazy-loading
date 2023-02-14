@@ -12,10 +12,15 @@ Placeholder,Placeholder
 "Blurred (with transition)","Blurred (with transition)"
 "Low Resolution","Low Resolution"
 Transparent,Transparent
+More,More
 "Lazy Loading","Lazy Loading"
 General,General
 Enable,Enable
-"Select <strong>Yes</strong> to enable the module","Select <strong>Yes</strong> to enable the module"
+"Select <b>Yes</b> to enable this module.<br />
+                        1. It helps to reduce abandonment cart with <a href=""https://www.mageplaza.com/magento-2-one-step-checkout-extension/"" target=""_blank"">One Step Checkout</a>. <br />
+                        2. Magento stores see upwards of 30% revenue 💰 with AVADA. <a href=""https://go.avada.io/mageplaza"">Learn more</a>","Select <b>Yes</b> to enable this module.<br />
+                        1. It helps to reduce abandonment cart with <a href=""https://www.mageplaza.com/magento-2-one-step-checkout-extension/"" target=""_blank"">One Step Checkout</a>. <br />
+                        2. Magento stores see upwards of 30% revenue 💰 with AVADA. <a href=""https://go.avada.io/mageplaza"">Learn more</a>"
 "Apply For","Apply For"
 "Exclude Pages With URL Including","Exclude Pages With URL Including"
 "Page(s) with URL(s) containing the above path(s) will not selected to apply lazy loading<br>Example: /gear.html","Page(s) with URL(s) containing the above path(s) will not selected to apply lazy loading<br>Example: /gear.html"
@@ -27,7 +32,7 @@ Enable,Enable
 "When no threshold is set, images will immediately load when they appear on screen. Defining a threshold (in pixels) will start pre-loading any images that appear outside the viewport<br>For example, if the threshold is 200px, the image load appears within 200px from the viewport.","When no threshold is set, images will immediately load when they appear on screen. Defining a threshold (in pixels) will start pre-loading any images that appear outside the viewport<br>For example, if the threshold is 200px, the image load appears within 200px from the viewport."
 "Loading Type","Loading Type"
 "Upload Icon","Upload Icon"
-"Upload loading icon. Support gif, jpg, svg, png. If no file is chosen, the default icon will be used. <br>Recommended: 64x64 px","Upload loading icon. Support gif, jpg, svg, png. If no file is chosen, the default icon will be used. <br>Recommended: 64x64 px"
+"Upload loading icon. Support gif, jpg, jpeg, png. If no file is chosen, the default icon will be used. <br>Recommended: 64x64 px","Upload loading icon. Support gif, jpg, jpeg, png. If no file is chosen, the default icon will be used. <br>Recommended: 64x64 px"
 "Resize Icon Width","Resize Icon Width"
 "Resize Icon Height","Resize Icon Height"
 "Placeholder Type","Placeholder Type"
