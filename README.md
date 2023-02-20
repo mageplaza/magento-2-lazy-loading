@@ -1,6 +1,8 @@
 # Magento 2 Lazy Loading extension
 
-[Magento 2 Lazy Loading module](https://www.mageplaza.com/magento-2-lazy-loading/) allows speeding up the site load by showing the image only at the demanding time. Lazy Loading improves site performance and reduces bounce rate due to slow loading.
+> **(Update) 2023-02-08**: This project will be marked as a paid item and no longer be maintained as free. For further updates and technical support, please follow [Magento 2 Lazy Loading](https://www.mageplaza.com/magento-2-lazy-loading/) for more information. We understand that this change might create inconvenience for our users. However, this is to ensure that the module will be updated with more useful features to support Magento 2 stores better. If you have any concerns or ideas about any features you would like to see, don’t hesitate to [contact us](https://www.mageplaza.com/support/) and leave a request.
+
+Magento 2 Lazy Loading extension allows speeding up the site load by showing the image only at the demanding time. Lazy Loading improves site performance and reduces bounce rate due to slow loading.
 
 ## 1. Documentation
 
